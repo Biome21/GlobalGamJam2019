@@ -5,24 +5,28 @@ using UnityEngine;
 public class Hermit : MonoBehaviour
 {
 	private readonly float[] VELOCITIES = new float[]{8.0f, 7.5f, 7.0f, 6.5f, 6.0f};
-	private readonly float[] WALK_SPEEDS = new float[]{5.0f, 4.0f, 3.0f, 2.0f, 1.5f};
+	private readonly float[] WALK_SPEEDS = new float[]{8.0f, 7.0f, 6.0f, 5.0f, 4.0f};
 	private const int MAXIMUM_FATNESS = 5;
 	private const int FOOD_PER_FATNESS = 3;
 	private const int MAX_FOOD = MAXIMUM_FATNESS * FOOD_PER_FATNESS;
 	private const float MIN_SCALE = 0.3f;
-	private const float MAX_SCALE = 1.0f;
+	private const float MAX_SCALE = 0.8f;
 	private const string WALK_ANIM = "Walk";
 	private const string IDLE_ANIM = "Idle";
+	private const float SHELL_PICKUP_RADIUS_EXT = 1.0f;
 
 	[SerializeField] private Transform m_ShellAnchor = null;
 	[SerializeField] private Transform m_Body = null;
 	[SerializeField] private SpriteRenderer m_GrayscaleSprite = null;
 	[SerializeField] private Animation m_Animation = null;
+	[SerializeField] private CircleCollider2D m_Collider = null;
 	private Rigidbody2D m_Rigidbody = null;
 	private int m_Fatness = 0;
 	private int m_Food = 0;
 	private PlayerInputManager.ControllerInput m_Controller;
 	private bool m_IsReady = false;
+	private Shell m_TargetedShell = null;
+	private Shell m_PickedUpShell = null;
 
 	public int Fatness
 	{
@@ -91,7 +95,7 @@ public class Hermit : MonoBehaviour
 		
 	}
 
-	private void Update() 
+	private void Update()
 	{
 		//PlayerInputManager.Instance.DebugButton();
 
@@ -112,6 +116,8 @@ public class Hermit : MonoBehaviour
 
 		// TODO: Prevent hermits from going out of bounds
 		m_Rigidbody.MovePosition(position);
+
+		HandleShellPickup();
 	}
 
 	private void OnTriggerEnter2D(Collider2D collider)
@@ -164,5 +170,62 @@ public class Hermit : MonoBehaviour
 		Color color = m_GrayscaleSprite.color;
 		color.r = ((float)m_Fatness / MAXIMUM_FATNESS) + (0.5f / MAXIMUM_FATNESS);
 		m_GrayscaleSprite.color = color;
+	}
+
+	private void OnShellPickedUp(Shell shell)
+	{
+		m_PickedUpShell = shell;
+		m_PickedUpShell.transform.SetParent(transform);
+		m_PickedUpShell.transform.position = m_ShellAnchor.position;
+	}
+
+	private void HandleShellPickup()
+	{
+		if (m_PickedUpShell != null)
+		{
+			return;
+		}
+
+		float radius = m_Collider.bounds.extents.x + SHELL_PICKUP_RADIUS_EXT;
+		Collider2D[] shells = Physics2D.OverlapCircleAll(m_Rigidbody.position, radius, LayerMask.GetMask("Shell"));
+		Shell closestShell = null;
+		float closestDistance = float.MaxValue;
+		for (int i = 0; i < shells.Length; ++i)
+		{
+			// TODO: Use ClosestPoint??
+			float distance = Vector3.Distance(m_Rigidbody.position, shells[i].bounds.center);
+			Shell shell = shells[i].GetComponentInParent<Shell>();
+
+			// Make sure it's the proper size for us
+			if (distance < closestDistance && shell.Fatness == Fatness)
+			{
+				closestDistance = distance;
+				closestShell = shell;
+			}
+		}
+
+		// A new shell was targeted
+		if (m_TargetedShell != closestShell)
+		{
+			// Not the one we used to have
+			if (m_TargetedShell != null)
+			{
+				m_TargetedShell.OnUntargeted();
+				m_TargetedShell = null;
+			}
+
+			// Target the new shell
+			if (closestShell != null)
+			{
+				closestShell.OnTargeted();
+				m_TargetedShell = closestShell;
+			}
+		}
+
+		// Check for shell pickup
+		if (m_TargetedShell != null && !m_TargetedShell.IsPickedUp && m_PickedUpShell == null && PlayerInputManager.Instance.GetButtonDown(m_Controller))
+		{
+			m_TargetedShell.OnPickedUp();
+		}
 	}
 }
