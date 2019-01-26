@@ -10,6 +10,7 @@ public class WaveCleaner : MonoBehaviour {
 
 	[Header("Managers")]
 	public PlanctonSpawner m_PlanctonSpawner;
+	public Foot m_Foot;
 
 	private bool m_Paused = true;
 	private float m_WaveTimer;
@@ -46,9 +47,15 @@ public class WaveCleaner : MonoBehaviour {
 		m_Paused = true;
 	}
 
+	public void Resume()
+	{
+		m_Paused = false;
+	}
+
 	private void StartWave()
 	{
 		m_Paused = true;
+		m_Foot.Stop ();
 		m_WaveCleanAnimation.Play ();
 	}
 
@@ -61,5 +68,7 @@ public class WaveCleaner : MonoBehaviour {
 	{
 		m_Paused = false;
 		m_WaveTimer = UnityEngine.Random.Range (m_MinWaveTime, m_MaxWaveTime);
+
+		m_Foot.Resume ();
 	}
 }
