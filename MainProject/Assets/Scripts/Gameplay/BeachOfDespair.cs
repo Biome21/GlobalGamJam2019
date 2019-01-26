@@ -21,6 +21,7 @@ public class BeachOfDespair : MonoBehaviour
 
 	[SerializeField] private PlanctonSpawner m_PlanctonSpawner = null;
 	[SerializeField] private WaveCleaner m_WaveCleaner = null;
+	[SerializeField] private Foot m_Foot = null;
 
 	public bool IsGameStarted
 	{
@@ -82,9 +83,12 @@ public class BeachOfDespair : MonoBehaviour
 		m_GameTimeText.gameObject.SetActive(true);
 		m_GameTimer.Start();
 		m_Countdown.gameObject.SetActive(false);
+		m_NeedMoreHermitsText.SetActive(false);
+		m_PressToJoinText.SetActive(false);
 
 		m_PlanctonSpawner.Initialize ();
 		m_WaveCleaner.Init ();
+		m_Foot.Init ();
 	}
 
 	private void OnGameOver()
@@ -93,6 +97,7 @@ public class BeachOfDespair : MonoBehaviour
 
 		m_PlanctonSpawner.StopSpawning ();
 		m_WaveCleaner.Stop ();
+		m_Foot.Stop ();
 	}
 
 	public void OnControllerReady()
