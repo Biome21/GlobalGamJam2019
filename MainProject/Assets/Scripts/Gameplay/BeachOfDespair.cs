@@ -19,6 +19,9 @@ public class BeachOfDespair : MonoBehaviour
 	private bool m_IsGameStarted = false;
 	private bool m_IsGameOver = false;
 
+	[SerializeField] private PlanctonSpawner m_PlanctonSpawner = null;
+	[SerializeField] private WaveCleaner m_WaveCleaner = null;
+
 	public bool IsGameStarted
 	{
 		get
@@ -79,11 +82,17 @@ public class BeachOfDespair : MonoBehaviour
 		m_GameTimeText.gameObject.SetActive(true);
 		m_GameTimer.Start();
 		m_Countdown.gameObject.SetActive(false);
+
+		m_PlanctonSpawner.Initialize ();
+		m_WaveCleaner.Init ();
 	}
 
 	private void OnGameOver()
 	{
 		m_IsGameOver = true;
+
+		m_PlanctonSpawner.StopSpawning ();
+		m_WaveCleaner.Stop ();
 	}
 
 	public void OnControllerReady()

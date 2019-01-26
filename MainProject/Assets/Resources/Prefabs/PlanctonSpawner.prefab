@@ -34,7 +34,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1962784553269340}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: -5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -53,10 +53,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_MinPlanctonOnScreen: 5
   m_MaxPlanctonOnScreen: 10
-  m_MinPlanctionLifetime: 5
-  m_MaxPlanctonLifetime: 10
-  m_CameraMarginX: 50
-  m_CameraMarginY: 50
+  m_MinRefreshTime: 2
+  m_MaxRefreshTime: 5
   m_PlanctonSize: 1
   m_PlanctonPrefab: {fileID: 1965316265037666, guid: badbbd4e7536249fd949e25183930288,
     type: 2}

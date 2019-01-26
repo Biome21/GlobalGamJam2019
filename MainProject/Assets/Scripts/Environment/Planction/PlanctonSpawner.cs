@@ -5,8 +5,6 @@ using System;
 
 public class PlanctonSpawner : MonoBehaviour {
 
-	private const float PLANCTON_DEPTH = -5f;
-
 	[Header("Spawn Values")]
 	public int m_MinPlanctonOnScreen = 5;
 	public int m_MaxPlanctonOnScreen = 10;
@@ -22,12 +20,6 @@ public class PlanctonSpawner : MonoBehaviour {
 
 	private float m_RefreshTime = 0;
 	private bool m_ShouldSpawn = false;
-
-	// Use this for initialization
-	private void Start ()
-	{
-		Initialize ();
-	}
 	
 	// Update is called once per frame
 	private void Update ()
@@ -51,6 +43,7 @@ public class PlanctonSpawner : MonoBehaviour {
 
 	public void Initialize()
 	{
+		Reset ();
 		//Spawn initial plancton on screen.
 		int startNumber = UnityEngine.Random.Range(m_MinPlanctonOnScreen, m_MaxPlanctonOnScreen + 1);
 
@@ -72,9 +65,12 @@ public class PlanctonSpawner : MonoBehaviour {
 	public void Reset()
 	{
 		StopSpawning();
-		for (int i = 0; i < m_UsedPlancton.Count; i++)
+		if (m_UsedPlancton.Count > 0)
 		{
-			m_UsedPlancton [i].Die();
+			for (int i = m_UsedPlancton.Count - 1; i >= 0; i--)
+			{
+				m_UsedPlancton [i].Die ();
+			}
 		}
 	}
 
@@ -90,7 +86,7 @@ public class PlanctonSpawner : MonoBehaviour {
 		{
 			planctonPosition = new Vector3 (UnityEngine.Random.Range (-halfCameraWidth + m_PlanctonSize, halfCameraWidth - m_PlanctonSize),
 				UnityEngine.Random.Range (-halfCameraHeight + m_PlanctonSize, halfCameraHeight - m_PlanctonSize),
-				PLANCTON_DEPTH);
+				transform.position.z);
 
 			hits = Physics2D.OverlapCircleAll (planctonPosition, m_PlanctonSize, 1 << LayerMask.NameToLayer("Plancton"));
 		} while(hits.Length > 0);
@@ -107,6 +103,7 @@ public class PlanctonSpawner : MonoBehaviour {
 			plancton = planctonObj.GetComponent<Plancton> ();
 		}
 
+		plancton.transform.position = planctonPosition;
 		plancton.m_OnPlanctonDied += OnPlanctonDied;
 		plancton.Spawn();
 
