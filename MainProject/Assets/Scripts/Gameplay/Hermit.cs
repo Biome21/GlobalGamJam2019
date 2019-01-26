@@ -4,15 +4,20 @@ using UnityEngine;
 
 public class Hermit : MonoBehaviour
 {
-	private readonly float[] VELOCITIES = new float[]{12.0f, 10.0f, 8.0f, 7.0f, 6.0f};
+	private readonly float[] VELOCITIES = new float[]{8.0f, 7.5f, 7.0f, 6.5f, 6.0f};
+	private readonly float[] WALK_SPEEDS = new float[]{5.0f, 4.0f, 3.0f, 2.0f, 1.5f};
 	private const int MAXIMUM_FATNESS = 5;
 	private const int FOOD_PER_FATNESS = 3;
 	private const int MAX_FOOD = MAXIMUM_FATNESS * FOOD_PER_FATNESS;
 	private const float MIN_SCALE = 0.3f;
 	private const float MAX_SCALE = 1.0f;
+	private const string WALK_ANIM = "Walk";
+	private const string IDLE_ANIM = "Idle";
 
 	[SerializeField] private Transform m_ShellAnchor = null;
 	[SerializeField] private Transform m_Body = null;
+	[SerializeField] private SpriteRenderer m_GrayscaleSprite = null;
+	[SerializeField] private Animation m_Animation = null;
 	private Rigidbody2D m_Rigidbody = null;
 	private int m_Fatness = 0;
 	private int m_Food = 0;
@@ -43,11 +48,27 @@ public class Hermit : MonoBehaviour
 		}
 	}
 
+	public int TotalFood
+	{
+		get
+		{
+			return Fatness * FOOD_PER_FATNESS + Food;
+		}
+	}
+
 	private float Velocity
 	{
 		get
 		{
-			return VELOCITIES[Mathf.Clamp(m_Fatness, 0, VELOCITIES.Length)];
+			return VELOCITIES[Mathf.Clamp(m_Fatness, 0, MAXIMUM_FATNESS - 1)];
+		}
+	}
+
+	private float WalkSpeed
+	{
+		get
+		{
+			return WALK_SPEEDS[Mathf.Clamp(m_Fatness, 0, MAXIMUM_FATNESS - 1)];
 		}
 	}
 
@@ -79,6 +100,16 @@ public class Hermit : MonoBehaviour
 		position.x += Velocity * joystick.x * Time.deltaTime;
 		position.y += Velocity * joystick.y * Time.deltaTime;
 
+		if (joystick.sqrMagnitude > 0.0f)
+		{
+			m_Animation.CrossFade(WALK_ANIM);
+			m_Animation[WALK_ANIM].speed = WalkSpeed;
+		}
+		else
+		{
+			m_Animation.CrossFade(IDLE_ANIM);
+		}
+
 		// TODO: Prevent hermits from going out of bounds
 		m_Rigidbody.MovePosition(position);
 	}
@@ -88,8 +119,7 @@ public class Hermit : MonoBehaviour
 		Plancton plancton = collider.GetComponentInParent<Plancton>();
 		if (plancton != null)
 		{
-			++Food;
-			UpdateFatness();
+			OnEatFood();
 			plancton.Die();
 		}
 	}
@@ -117,8 +147,22 @@ public class Hermit : MonoBehaviour
 	{
 	}
 
+	private void OnEatFood()
+	{
+		if (++Food >= FOOD_PER_FATNESS)
+		{
+			Food = 0;
+			++Fatness;
+		}
+
+		UpdateFatness();
+	}
+
 	private void UpdateFatness()
 	{
-		m_Body.localScale = Vector3.one * Mathf.Lerp(MIN_SCALE, MAX_SCALE, (float)m_Food / MAX_FOOD);
+		m_Body.localScale = Vector3.one * Mathf.Lerp(MIN_SCALE, MAX_SCALE, (float)TotalFood / MAX_FOOD);
+		Color color = m_GrayscaleSprite.color;
+		color.r = ((float)m_Fatness / MAXIMUM_FATNESS) + (0.5f / MAXIMUM_FATNESS);
+		m_GrayscaleSprite.color = color;
 	}
 }

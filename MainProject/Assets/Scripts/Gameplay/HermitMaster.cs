@@ -34,8 +34,6 @@ public class HermitMaster : MonoBehaviour
 				hermit.SetActive(!hermit.activeSelf);
 				m_Hermits[i].OnControllerReady(controller);
 				// TODO: Remap the keyboard as well
-				// TODO: Prevent this when game already started
-				// TODO: Reset countdown
 			}
 		}
 

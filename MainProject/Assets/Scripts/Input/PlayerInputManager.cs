@@ -704,7 +704,7 @@ public partial class PlayerInputManager
 		if (!string.IsNullOrEmpty(keyCode))
 			isDown = Input.GetKey(keyCode);
 		
-		/*if (!isDown)
+		if (!isDown)
 		{
 			if (player == ControllerInput.Controller1)
 			{
@@ -722,7 +722,7 @@ public partial class PlayerInputManager
 			{
 				isDown = GetButton(InputType.KEYBOARD_PLAYER4, buttonId);
 			}
-		}*/
+		}
 		
 		return isDown;
 	}
@@ -827,7 +827,7 @@ public partial class PlayerInputManager
 		if (!string.IsNullOrEmpty(keyCode))
 			isDown = Input.GetKeyDown(keyCode);
 		
-		/*if (!isDown)
+		if (!isDown)
 		{
 			if (player == ControllerInput.Controller1)
 			{
@@ -845,7 +845,7 @@ public partial class PlayerInputManager
 			{
 				isDown = GetButtonDown(InputType.KEYBOARD_PLAYER4, buttonId);
 			}
-		}*/
+		}
 		
 		return isDown;
 	}
@@ -972,7 +972,7 @@ public partial class PlayerInputManager
 		if (!string.IsNullOrEmpty(keyCode))
 			isUp = Input.GetKeyUp(keyCode);
 		
-		/*if (!isUp)
+		if (!isUp)
 		{
 			if (player == ControllerInput.Controller1)
 			{
@@ -990,7 +990,7 @@ public partial class PlayerInputManager
 			{
 				isUp = GetButtonUp(InputType.KEYBOARD_PLAYER4, buttonId);
 			}
-		}*/
+		}
 		
 		return isUp;
 	}
