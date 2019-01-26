@@ -13,7 +13,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - Plancton
   - 
   - 
   - 
@@ -40,4 +40,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Plancton
+    uniqueID: 1249434493
     locked: 0
