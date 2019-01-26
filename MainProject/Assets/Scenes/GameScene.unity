@@ -113,6 +113,12 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &85356828 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114433012659027194, guid: 02af276d9a4cf473b95da836080b0126,
+    type: 2}
+  m_PrefabInternal: {fileID: 660556926}
+  m_Script: {fileID: 11500000, guid: 8dbc402291c4a4a998620f9669252987, type: 3}
 --- !u!1 &108309155
 GameObject:
   m_ObjectHideFlags: 0
@@ -146,6 +152,8 @@ MonoBehaviour:
   m_PressToJoinText: {fileID: 1125065700}
   m_NeedMoreHermitsText: {fileID: 664185060}
   m_GameTimeText: {fileID: 228179514}
+  m_PlanctonSpawner: {fileID: 85356828}
+  m_WaveCleaner: {fileID: 1704989658}
 --- !u!4 &108309157
 Transform:
   m_ObjectHideFlags: 0
@@ -629,6 +637,53 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 368296614}
   m_Script: {fileID: 11500000, guid: 7efd3fb7aecb84ea295668af9355ead3, type: 3}
+--- !u!1001 &419292836
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4842836380357132, guid: 9cf22c4da2ca442ea892663b602b985f, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4842836380357132, guid: 9cf22c4da2ca442ea892663b602b985f, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -11
+      objectReference: {fileID: 0}
+    - target: {fileID: 4842836380357132, guid: 9cf22c4da2ca442ea892663b602b985f, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4842836380357132, guid: 9cf22c4da2ca442ea892663b602b985f, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4842836380357132, guid: 9cf22c4da2ca442ea892663b602b985f, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4842836380357132, guid: 9cf22c4da2ca442ea892663b602b985f, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4842836380357132, guid: 9cf22c4da2ca442ea892663b602b985f, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4842836380357132, guid: 9cf22c4da2ca442ea892663b602b985f, type: 2}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 114137039014962660, guid: 9cf22c4da2ca442ea892663b602b985f,
+        type: 2}
+      propertyPath: m_PlanctonSpawner
+      value: 
+      objectReference: {fileID: 85356828}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 9cf22c4da2ca442ea892663b602b985f, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &564406890
 GameObject:
   m_ObjectHideFlags: 0
@@ -1377,6 +1432,12 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 1478437097}
   m_Script: {fileID: 11500000, guid: 7efd3fb7aecb84ea295668af9355ead3, type: 3}
+--- !u!114 &1704989658 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114137039014962660, guid: 9cf22c4da2ca442ea892663b602b985f,
+    type: 2}
+  m_PrefabInternal: {fileID: 419292836}
+  m_Script: {fileID: 11500000, guid: 40afd380faf2b4b609a3ef89a4b4dc46, type: 3}
 --- !u!1 &1874946338
 GameObject:
   m_ObjectHideFlags: 0
