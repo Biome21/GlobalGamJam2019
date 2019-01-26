@@ -58,7 +58,8 @@ public partial class PlayerInputManager
 		KEYBOARD_PLAYER4,
 		MOUSE1,
 		XBOX360_MAC_CONTROLLER,
-		PS4_CONTROLLER
+		PS4_CONTROLLER,
+		MICROSOFT_SIDEWINDER
 	}
 	
 	public enum ButtonId
@@ -234,6 +235,35 @@ public partial class PlayerInputManager
 		Right,
 		ForceQuit
 	}
+
+	public enum ButtonSideWinder
+	{
+		A = 0,
+		B,
+		X,
+		Y,
+		Select,
+		Start,
+		L,
+		R,
+		C,
+		Z,
+		Button10,
+		Button11,
+		Button12,
+		Button13,
+		Button14,
+		Button15,
+		Button16,
+		Button17,
+		Button18,
+		Button19,
+		Up,
+		Down,
+		Left,
+		Right,
+		ForceQuit
+	}
 	#endregion
 	
 	protected PlayerInputManager()
@@ -255,6 +285,8 @@ public partial class PlayerInputManager
 				inputType = InputType.LOGITECH_WINGMAN_CONTROLLER;
 			else if (joysticks[i].Contains("Sony Computer"))
 				inputType = InputType.PS4_CONTROLLER;
+			else if (joysticks[i].Contains("SideWinder"))
+				inputType = InputType.MICROSOFT_SIDEWINDER;
 			else if (joysticks[i] == "")
 				inputType = InputType.XBOX360_MAC_CONTROLLER;
 			
@@ -299,12 +331,26 @@ public partial class PlayerInputManager
 		ps4Mapping.AddMap(ButtonPS4.Triangle, "joystick# button 3");
 		ps4Mapping.AddMap(ButtonPS4.Options, "joystick# button 9");
 		ps4Mapping.AddMap(ButtonPS4.Share, "joystick# button 8");
-		/*ps4Mapping.AddMap(ButtonPS4.L1, "joystick# button 10");
-		ps4Mapping.AddMap(ButtonPS4.R1, "joystick# button 11");
-		ps4Mapping.AddMap(ButtonPS4.L2, "joystick# button 8");
-		ps4Mapping.AddMap(ButtonPS4.R2, "joystick# button 9");
-		ps4Mapping.AddMap(ButtonPS4.PS, "joystick# button 16");*/
+		ps4Mapping.AddMap(ButtonPS4.L1, "joystick# button 4");
+		ps4Mapping.AddMap(ButtonPS4.R1, "joystick# button 5");
+		ps4Mapping.AddMap(ButtonPS4.L2, "joystick# button 6");
+		ps4Mapping.AddMap(ButtonPS4.R2, "joystick# button 7");
+		ps4Mapping.AddMap(ButtonPS4.PS, "joystick# button 12");
 		m_InputTypeMapping.Add(InputType.PS4_CONTROLLER, ps4Mapping);
+
+		// Map the SideWinder controller
+		KeyCodeMapping swMapping = new KeyCodeMapping();
+		swMapping.AddMap(ButtonSideWinder.A, "joystick# button 0");		
+		swMapping.AddMap(ButtonSideWinder.B, "joystick# button 1");
+		swMapping.AddMap(ButtonSideWinder.C, "joystick# button 2");
+		swMapping.AddMap(ButtonSideWinder.X, "joystick# button 3");	
+		swMapping.AddMap(ButtonSideWinder.Y, "joystick# button 4");
+		swMapping.AddMap(ButtonSideWinder.Z, "joystick# button 5");
+		swMapping.AddMap(ButtonSideWinder.Start, "joystick# button 9");
+		swMapping.AddMap(ButtonSideWinder.Select, "joystick# button 8");
+		swMapping.AddMap(ButtonSideWinder.L, "joystick# button 6");
+		swMapping.AddMap(ButtonSideWinder.R, "joystick# button 7");
+		m_InputTypeMapping.Add(InputType.MICROSOFT_SIDEWINDER, swMapping);
 		
 		// Map the XBOX 360 controller
 		KeyCodeMapping xbox360Mapping = new KeyCodeMapping();
@@ -1137,7 +1183,12 @@ public partial class PlayerInputManager
 		{
 			AddMap((PlayerInputManager.ButtonId)buttonId, inputKey);
 		}
-		
+
+		public void AddMap(PlayerInputManager.ButtonSideWinder buttonId, string inputKey)
+		{
+			AddMap((PlayerInputManager.ButtonId)buttonId, inputKey);
+		}
+
 		public void AddMap(PlayerInputManager.ButtonXBOX360 buttonId, string inputKey)
 		{
 			AddMap((PlayerInputManager.ButtonId)buttonId, inputKey);
