@@ -5,6 +5,8 @@ using System;
 
 public class PlanctonSpawner : MonoBehaviour {
 
+	private const float PLANCTON_DEPTH = -5f;
+
 	[Header("Spawn Values")]
 	public int m_MinPlanctonOnScreen = 5;
 	public int m_MaxPlanctonOnScreen = 10;
@@ -83,11 +85,12 @@ public class PlanctonSpawner : MonoBehaviour {
 		float halfCameraHeight = Camera.main.orthographicSize;
 
 		Collider2D[] hits;
-		Vector2 planctonPosition;
+		Vector3 planctonPosition;
 		do
 		{
-			planctonPosition = new Vector2 (UnityEngine.Random.Range (-halfCameraWidth + m_PlanctonSize, halfCameraWidth - m_PlanctonSize),
-				UnityEngine.Random.Range (-halfCameraHeight + m_PlanctonSize, halfCameraHeight - m_PlanctonSize));
+			planctonPosition = new Vector3 (UnityEngine.Random.Range (-halfCameraWidth + m_PlanctonSize, halfCameraWidth - m_PlanctonSize),
+				UnityEngine.Random.Range (-halfCameraHeight + m_PlanctonSize, halfCameraHeight - m_PlanctonSize),
+				PLANCTON_DEPTH);
 
 			hits = Physics2D.OverlapCircleAll (planctonPosition, m_PlanctonSize, 1 << LayerMask.NameToLayer("Plancton"));
 		} while(hits.Length > 0);
