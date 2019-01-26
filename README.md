@@ -1,1 +1,1 @@
-# GlobalGamJam2019
+# GlobalGameJam2019
