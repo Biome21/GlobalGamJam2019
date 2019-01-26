@@ -2,13 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Hermit : MonoBehaviour 
+public class Hermit : MonoBehaviour
 {
 	private readonly float[] VELOCITIES = new float[]{12.0f, 10.0f, 8.0f, 7.0f, 6.0f};
+	private const int MAXIMUM_FATNESS = 5;
+	private const int FOOD_PER_FATNESS = 3;
+	private const int MAX_FOOD = MAXIMUM_FATNESS * FOOD_PER_FATNESS;
+	private const float MIN_SCALE = 0.3f;
+	private const float MAX_SCALE = 1.0f;
 
 	[SerializeField] private Transform m_ShellAnchor = null;
+	[SerializeField] private Transform m_Body = null;
 	private Rigidbody2D m_Rigidbody = null;
 	private int m_Fatness = 0;
+	private int m_Food = 0;
 	private PlayerInputManager.ControllerInput m_Controller;
 	private bool m_IsReady = false;
 
@@ -17,6 +24,22 @@ public class Hermit : MonoBehaviour
 		get
 		{
 			return m_Fatness;
+		}
+		private set
+		{
+			m_Fatness = Mathf.Clamp(value, 0, MAXIMUM_FATNESS);
+		}
+	}
+
+	public int Food
+	{
+		get
+		{
+			return m_Food;
+		}
+		private set
+		{
+			m_Food = Mathf.Clamp(value, 0, MAX_FOOD);
 		}
 	}
 
@@ -39,6 +62,7 @@ public class Hermit : MonoBehaviour
 	private void Awake()
 	{
 		m_Rigidbody = GetComponent<Rigidbody2D>();
+		UpdateFatness();
 	}
 
 	private void Start()
@@ -57,6 +81,17 @@ public class Hermit : MonoBehaviour
 
 		// TODO: Prevent hermits from going out of bounds
 		m_Rigidbody.MovePosition(position);
+	}
+
+	private void OnTriggerEnter2D(Collider2D collider)
+	{
+		Plancton plancton = collider.GetComponentInParent<Plancton>();
+		if (plancton != null)
+		{
+			++Food;
+			UpdateFatness();
+			plancton.Die();
+		}
 	}
 
 	public void OnControllerReady(PlayerInputManager.ControllerInput controller)
@@ -80,5 +115,10 @@ public class Hermit : MonoBehaviour
 
 	private void OnNotReady()
 	{
+	}
+
+	private void UpdateFatness()
+	{
+		m_Body.localScale = Vector3.one * Mathf.Lerp(MIN_SCALE, MAX_SCALE, (float)m_Food / MAX_FOOD);
 	}
 }
