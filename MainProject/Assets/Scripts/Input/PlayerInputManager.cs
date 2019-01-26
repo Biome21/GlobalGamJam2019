@@ -57,7 +57,8 @@ public partial class PlayerInputManager
 		KEYBOARD_PLAYER3,
 		KEYBOARD_PLAYER4,
 		MOUSE1,
-		XBOX360_MAC_CONTROLLER
+		XBOX360_MAC_CONTROLLER,
+		PS4_CONTROLLER
 	}
 	
 	public enum ButtonId
@@ -97,6 +98,35 @@ public partial class PlayerInputManager
 		Triangle,
 		Select,
 		Start,
+		L1,
+		R1,
+		L2,
+		R2,
+		PS,
+		Button11,
+		Button12,
+		Button13,
+		Button14,
+		Button15,
+		Button16,
+		Button17,
+		Button18,
+		Button19,
+		Up,
+		Down,
+		Left,
+		Right,
+		ForceQuit
+	}
+
+	public enum ButtonPS4
+	{
+		X = 0,
+		Circle,
+		Square,
+		Triangle,
+		Options,
+		Share,
 		L1,
 		R1,
 		L2,
@@ -223,6 +253,8 @@ public partial class PlayerInputManager
 				inputType = InputType.SNES_CONTROLLER;
 			else if (joysticks[i].Contains("WingMan"))
 				inputType = InputType.LOGITECH_WINGMAN_CONTROLLER;
+			else if (joysticks[i].Contains("Sony Computer"))
+				inputType = InputType.PS4_CONTROLLER;
 			else if (joysticks[i] == "")
 				inputType = InputType.XBOX360_MAC_CONTROLLER;
 			
@@ -258,6 +290,21 @@ public partial class PlayerInputManager
 		ps3Mapping.AddMap(ButtonPS3.R2, "joystick# button 9");
 		ps3Mapping.AddMap(ButtonPS3.PS, "joystick# button 16");
 		m_InputTypeMapping.Add(InputType.PS3_CONTROLLER, ps3Mapping);
+
+		// Map the PS4 controller
+		KeyCodeMapping ps4Mapping = new KeyCodeMapping();
+		ps4Mapping.AddMap(ButtonPS4.X, "joystick# button 1");		
+		ps4Mapping.AddMap(ButtonPS4.Circle, "joystick# button 2");	
+		ps4Mapping.AddMap(ButtonPS4.Square, "joystick# button 0");	
+		ps4Mapping.AddMap(ButtonPS4.Triangle, "joystick# button 3");
+		ps4Mapping.AddMap(ButtonPS4.Options, "joystick# button 9");
+		ps4Mapping.AddMap(ButtonPS4.Share, "joystick# button 8");
+		/*ps4Mapping.AddMap(ButtonPS4.L1, "joystick# button 10");
+		ps4Mapping.AddMap(ButtonPS4.R1, "joystick# button 11");
+		ps4Mapping.AddMap(ButtonPS4.L2, "joystick# button 8");
+		ps4Mapping.AddMap(ButtonPS4.R2, "joystick# button 9");
+		ps4Mapping.AddMap(ButtonPS4.PS, "joystick# button 16");*/
+		m_InputTypeMapping.Add(InputType.PS4_CONTROLLER, ps4Mapping);
 		
 		// Map the XBOX 360 controller
 		KeyCodeMapping xbox360Mapping = new KeyCodeMapping();
@@ -1082,6 +1129,11 @@ public partial class PlayerInputManager
 		}
 		
 		public void AddMap(PlayerInputManager.ButtonPS3 buttonId, string inputKey)
+		{
+			AddMap((PlayerInputManager.ButtonId)buttonId, inputKey);
+		}
+
+		public void AddMap(PlayerInputManager.ButtonPS4 buttonId, string inputKey)
 		{
 			AddMap((PlayerInputManager.ButtonId)buttonId, inputKey);
 		}
