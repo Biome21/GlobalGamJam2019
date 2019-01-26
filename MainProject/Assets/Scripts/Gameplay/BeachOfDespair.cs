@@ -83,6 +83,8 @@ public class BeachOfDespair : MonoBehaviour
 		m_GameTimeText.gameObject.SetActive(true);
 		m_GameTimer.Start();
 		m_Countdown.gameObject.SetActive(false);
+		m_NeedMoreHermitsText.SetActive(false);
+		m_PressToJoinText.SetActive(false);
 
 		m_PlanctonSpawner.Initialize ();
 		m_WaveCleaner.Init ();

@@ -115,7 +115,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4041146625544238}
-  - component: {fileID: 70001844933118506}
+  - component: {fileID: 58919559651911360}
   m_Layer: 9
   m_Name: Body
   m_TagString: Untagged
@@ -240,8 +240,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!70 &70001844933118506
-CapsuleCollider2D:
+--- !u!58 &58919559651911360
+CircleCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -252,9 +252,9 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.23}
-  m_Size: {x: 2.3, y: 2.49}
-  m_Direction: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 1.25
 --- !u!111 &111240431559413554
 Animation:
   m_ObjectHideFlags: 1
@@ -286,6 +286,7 @@ MonoBehaviour:
   m_Body: {fileID: 4041146625544238}
   m_GrayscaleSprite: {fileID: 212873199478554478}
   m_Animation: {fileID: 111240431559413554}
+  m_Collider: {fileID: 58919559651911360}
 --- !u!212 &212179098227383952
 SpriteRenderer:
   m_ObjectHideFlags: 1
