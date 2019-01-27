@@ -72,6 +72,19 @@ public class BeachOfDespair : MonoBehaviour
 	{
 		m_CountdownTimer.Update();
 		m_GameTimer.Update();
+
+		if (m_IsGameOver)
+		{
+			for (int i = 0; i < m_Master.Hermits.Count; ++i)
+			{
+				PlayerInputManager.ControllerInput controller = (PlayerInputManager.ControllerInput)(i + 1);
+				if (PlayerInputManager.Instance.GetButtonDown(controller))
+				{
+					UnityEngine.SceneManagement.SceneManager.LoadScene(0);
+					return;
+				}
+			}
+		}
 	}
 
 	private void OnDestroy()
