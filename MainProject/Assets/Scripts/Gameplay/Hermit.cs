@@ -36,7 +36,7 @@ public class Hermit : MonoBehaviour
 		}
 		private set
 		{
-			m_Fatness = Mathf.Clamp(value, 0, MAXIMUM_FATNESS);
+			m_Fatness = Mathf.Clamp(value, 0, MAXIMUM_FATNESS - 1);
 		}
 	}
 
@@ -172,11 +172,14 @@ public class Hermit : MonoBehaviour
 		m_GrayscaleSprite.color = color;
 	}
 
-	private void OnShellPickedUp(Shell shell)
+	private void OnShellPickedUp()
 	{
-		m_PickedUpShell = shell;
+		m_PickedUpShell = m_TargetedShell;
 		m_PickedUpShell.transform.SetParent(transform);
 		m_PickedUpShell.transform.position = m_ShellAnchor.position;
+		m_PickedUpShell.transform.localEulerAngles = Vector3.zero;
+		m_PickedUpShell.OnPickedUp();
+		m_TargetedShell = null;
 	}
 
 	private void HandleShellPickup()
@@ -192,6 +195,7 @@ public class Hermit : MonoBehaviour
 		float closestDistance = float.MaxValue;
 		for (int i = 0; i < shells.Length; ++i)
 		{
+			
 			// TODO: Use ClosestPoint??
 			float distance = Vector3.Distance(m_Rigidbody.position, shells[i].bounds.center);
 			Shell shell = shells[i].GetComponentInParent<Shell>();
@@ -225,7 +229,7 @@ public class Hermit : MonoBehaviour
 		// Check for shell pickup
 		if (m_TargetedShell != null && !m_TargetedShell.IsPickedUp && m_PickedUpShell == null && PlayerInputManager.Instance.GetButtonDown(m_Controller))
 		{
-			m_TargetedShell.OnPickedUp();
+			OnShellPickedUp();
 		}
 	}
 }

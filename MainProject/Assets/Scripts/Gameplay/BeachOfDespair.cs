@@ -8,12 +8,12 @@ public class BeachOfDespair : MonoBehaviour
 	private const int MIN_HERMIT_COUNT = 2;
 	private const int GAME_TIME = 120;
 
-	[SerializeField] private TextMesh m_Countdown = null;
+	[SerializeField] private TextMesh[] m_Countdown = null;
 	[SerializeField] private HermitMaster m_Master = null;
 	[SerializeField] private GameObject m_TitleText = null;
 	[SerializeField] private GameObject m_PressToJoinText = null;
 	[SerializeField] private GameObject m_NeedMoreHermitsText = null;
-	[SerializeField] private TextMesh m_GameTimeText = null;
+	[SerializeField] private TextMesh[] m_GameTimeText = null;
 	private Timer m_CountdownTimer = new Timer(COUNTDOWN_TIME);
 	private Timer m_GameTimer = new Timer(GAME_TIME);
 	private bool m_IsGameStarted = false;
@@ -44,8 +44,8 @@ public class BeachOfDespair : MonoBehaviour
 		m_TitleText.SetActive(true);
 		m_PressToJoinText.SetActive(true);
 		m_NeedMoreHermitsText.SetActive(false);
-		m_Countdown.gameObject.SetActive(false);
-		m_GameTimeText.gameObject.SetActive(false);
+		SetTextsActive(m_Countdown, false);
+		SetTextsActive(m_GameTimeText, false);
 
 		m_CountdownTimer.m_OnUpdate += UpdateCountdown;
 		m_CountdownTimer.m_OnDone += OnGameStarted;
@@ -69,20 +69,20 @@ public class BeachOfDespair : MonoBehaviour
 
 	private void UpdateCountdown()
 	{
-		m_Countdown.text = Mathf.CeilToInt(m_CountdownTimer.StartTime - m_CountdownTimer.ElapsedTime).ToString();
+		SetTexts(m_Countdown, Mathf.CeilToInt(m_CountdownTimer.StartTime - m_CountdownTimer.ElapsedTime).ToString());
 	}
 
 	private void UpdateGameTime()
 	{
-		m_GameTimeText.text = Mathf.CeilToInt(m_GameTimer.StartTime - m_GameTimer.ElapsedTime).ToString();
+		SetTexts(m_GameTimeText, Mathf.CeilToInt(m_GameTimer.StartTime - m_GameTimer.ElapsedTime).ToString());
 	}
 
 	private void OnGameStarted()
 	{
 		m_IsGameStarted = true;
-		m_GameTimeText.gameObject.SetActive(true);
+		SetTextsActive(m_GameTimeText, true);
 		m_GameTimer.Start();
-		m_Countdown.gameObject.SetActive(false);
+		SetTextsActive(m_Countdown, false);
 		m_NeedMoreHermitsText.SetActive(false);
 		m_PressToJoinText.SetActive(false);
 
@@ -106,7 +106,7 @@ public class BeachOfDespair : MonoBehaviour
 		if (hermitReadyCount >= MIN_HERMIT_COUNT)
 		{
 			m_CountdownTimer.Start();
-			m_Countdown.gameObject.SetActive(true);
+			SetTextsActive(m_Countdown, true);
 			UpdateCountdown();
 			m_TitleText.SetActive(false);
 			m_NeedMoreHermitsText.SetActive(false);
@@ -114,7 +114,7 @@ public class BeachOfDespair : MonoBehaviour
 		else
 		{
 			m_CountdownTimer.Stop();
-			m_Countdown.gameObject.SetActive(false);
+			SetTextsActive(m_Countdown, false);
 
 			if (hermitReadyCount > 0)
 			{
@@ -127,6 +127,22 @@ public class BeachOfDespair : MonoBehaviour
 				m_PressToJoinText.SetActive(true);
 				m_NeedMoreHermitsText.SetActive(false);
 			}
+		}
+	}
+
+	private void SetTexts(TextMesh[] texts, string text)
+	{
+		for (int i = 0; i < texts.Length; ++i)
+		{
+			texts[i].text = text;
+		}
+	}
+
+	private void SetTextsActive(TextMesh[] texts, bool isActive)
+	{
+		for (int i = 0; i < texts.Length; ++i)
+		{
+			texts[i].gameObject.SetActive(isActive);
 		}
 	}
 }
