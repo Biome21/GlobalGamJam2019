@@ -7,6 +7,7 @@ public class BeachOfDespair : MonoBehaviour
 	private const int COUNTDOWN_TIME = 5;
 	private const int MIN_HERMIT_COUNT = 2;
 	private const int GAME_TIME = 120;
+	private const float WINNING_OFFSET_BETWEEN_HERMITS = 0.5f;
 
 	[SerializeField] private TextMesh[] m_Countdown = null;
 	[SerializeField] private HermitMaster m_Master = null;
@@ -16,6 +17,8 @@ public class BeachOfDespair : MonoBehaviour
 	[SerializeField] private TextMesh[] m_GameTimeText = null;
 	[SerializeField] private AudioSource m_SFXSource = null;
 	[SerializeField] private GameObject m_WinningScreen = null;
+	[SerializeField] private Transform m_WinningHermitsAnchor = null;
+
 	private Timer m_CountdownTimer = new Timer(COUNTDOWN_TIME);
 	private Timer m_GameTimer = new Timer(GAME_TIME);
 	private bool m_IsGameStarted = false;
