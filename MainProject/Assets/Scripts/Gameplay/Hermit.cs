@@ -31,6 +31,7 @@ public class Hermit : MonoBehaviour
 	[SerializeField] private AudioClip[] m_EatClips = null;
 	[SerializeField] private AudioClip m_BreakClip = null;
 	[SerializeField] private AudioClip m_PickupClip = null;
+	[SerializeField] private ThoughtBubble m_ThoughtBubble = null;
 	private BeachOfDespair m_Beach = null;
 	private Rigidbody2D m_Rigidbody = null;
 	private int m_Fatness = 0;
@@ -120,6 +121,8 @@ public class Hermit : MonoBehaviour
 
 		// Fuck it
 		m_Beach = FindObjectOfType<BeachOfDespair>();
+
+		m_ThoughtBubble.gameObject.SetActive (false);
 	}
 
 	private void Start()
@@ -154,6 +157,9 @@ public class Hermit : MonoBehaviour
 		m_Rigidbody.MovePosition(position);
 
 		HandleShellPickup();
+
+		m_ThoughtBubble.gameObject.SetActive (true);
+		m_ThoughtBubble.SetIcon (Fatness);
 	}
 
 	private void OnTriggerEnter2D(Collider2D collider)
@@ -197,6 +203,8 @@ public class Hermit : MonoBehaviour
 			++Fatness;
 
 			ExplodeShell ();
+
+			m_ThoughtBubble.SetIcon (Fatness);
 		}
 		else
 		{
@@ -243,6 +251,8 @@ public class Hermit : MonoBehaviour
 
 			m_Collider.enabled = false;
 			Destroy (GetComponent<Rigidbody2D> ());
+
+			m_ThoughtBubble.gameObject.SetActive (false);
 
 			m_IsDead = true;
 			m_IsReady = false;
