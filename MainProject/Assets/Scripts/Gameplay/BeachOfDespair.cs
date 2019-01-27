@@ -6,9 +6,10 @@ public class BeachOfDespair : MonoBehaviour
 {
 	private const int COUNTDOWN_TIME = 5;
 	private const int MIN_HERMIT_COUNT = 2;
+
 	private const int GAME_TIME = 120;
-	private const int LOADING_TIME = 3;
-	private const float WINNING_OFFSET_BETWEEN_HERMITS = 0.25f;
+	private const int LOADING_TIME = 2;
+	private const float WINNING_OFFSET_BETWEEN_HERMITS = 0.2f;
 
 	[SerializeField] private TextMesh[] m_Countdown = null;
 	[SerializeField] private HermitMaster m_Master = null;
@@ -20,6 +21,7 @@ public class BeachOfDespair : MonoBehaviour
 	[SerializeField] private GameObject m_WinningScreen = null;
 	[SerializeField] private Transform m_WinningHermitsAnchor = null;
 	[SerializeField] private GameObject m_LoadingScreen = null;
+	[SerializeField] private GameObject m_MedalPrefab = null;
 
 	private Timer m_CountdownTimer = new Timer(COUNTDOWN_TIME);
 	private Timer m_GameTimer = new Timer(GAME_TIME);
@@ -31,6 +33,7 @@ public class BeachOfDespair : MonoBehaviour
 	[SerializeField] private WaveCleaner m_WaveCleaner = null;
 	[SerializeField] private Foot m_Foot = null;
 	[SerializeField] private ShellSpawner m_ShellSpawner = null;
+	[SerializeField] private ObstaclesSpawner m_ObstacleSpawner = null;
 
 	public bool IsGameStarted
 	{
@@ -58,6 +61,8 @@ public class BeachOfDespair : MonoBehaviour
 
 	private void Awake()
 	{
+		Cursor.visible = false;
+
 		m_TitleText.SetActive(true);
 		m_PressToJoinText.SetActive(true);
 		m_NeedMoreHermitsText.SetActive(false);
@@ -76,6 +81,11 @@ public class BeachOfDespair : MonoBehaviour
 
 	private void Update()
 	{
+		if (Input.GetKeyDown(KeyCode.Escape))
+		{
+			Application.Quit();
+		}
+
 		m_CountdownTimer.Update();
 		m_GameTimer.Update();
 		m_LoadingTimer.Update();
@@ -131,6 +141,7 @@ public class BeachOfDespair : MonoBehaviour
 		m_WaveCleaner.Init ();
 		m_Foot.Init ();
 		m_ShellSpawner.Init ();
+		m_ObstacleSpawner.Init ();
 	}
 
 	public void OnGameOver()
@@ -140,7 +151,9 @@ public class BeachOfDespair : MonoBehaviour
 		m_GameTimer.Stop();
 		m_PlanctonSpawner.StopSpawning ();
 		m_WaveCleaner.Stop ();
+		m_WaveCleaner.enabled = false;
 		m_Foot.Stop ();
+		m_Foot.enabled = false;
 
 		m_WinningScreen.SetActive(true);
 		SetTextsActive(m_Countdown, false);
@@ -161,6 +174,13 @@ public class BeachOfDespair : MonoBehaviour
 		Vector3 localPosition = new Vector3(-width / 2, 0.0f, 0.0f);
 		for (int i = 0; i < hermits.Count; ++i)
 		{
+			if (hermits[i].CompareTo(hermits[0]) == 0)
+			{
+				GameObject medal = Instantiate(m_MedalPrefab) as GameObject;
+				medal.transform.SetParent(m_WinningHermitsAnchor);
+				medal.transform.localPosition = localPosition + new Vector3(0.0f, -0.15f, 0.0f);
+			}
+
 			hermits[i].transform.SetParent(m_WinningHermitsAnchor);
 			hermits[i].transform.localPosition = localPosition;
 			localPosition.x += WINNING_OFFSET_BETWEEN_HERMITS;

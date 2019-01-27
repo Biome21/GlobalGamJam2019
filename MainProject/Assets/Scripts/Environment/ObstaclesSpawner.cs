@@ -16,7 +16,11 @@ public class ObstaclesSpawner : MonoBehaviour {
 	private void Start ()
 	{
 		m_WaveCleaner.m_OnWaveFullScreen += OnWaveFullScreen;
-		SpawnObstacles ();
+	}
+
+	public void Init()
+	{
+		SpawnObstacles ();		
 	}
 		
 	private void OnWaveFullScreen()

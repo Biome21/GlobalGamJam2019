@@ -210,8 +210,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8dbc402291c4a4a998620f9669252987, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_MinPlanctonOnScreen: 5
-  m_MaxPlanctonOnScreen: 10
+  m_MinPlanctonOnScreen: 3
+  m_MaxPlanctonOnScreen: 5
   m_MinRefreshTime: 2
   m_MaxRefreshTime: 5
   m_PlanctonSize: 1
@@ -422,6 +422,7 @@ MonoBehaviour:
   m_WaveCleaner: {fileID: 1704989658}
   m_Foot: {fileID: 1239003481}
   m_ShellSpawner: {fileID: 809295462}
+  m_ObstacleSpawner: {fileID: 1114693213}
 --- !u!4 &185384724
 Transform:
   m_ObjectHideFlags: 0
@@ -1560,6 +1561,7 @@ MonoBehaviour:
   m_BeachOfDespair: {fileID: 185384723}
   m_SelectClip: {fileID: 8300000, guid: ec095c85680fd46ecbb352bc813868ff, type: 3}
   m_UnselectClip: {fileID: 8300000, guid: f0482d5bce9094060b2d42c6d9abaa41, type: 3}
+  m_ShellSpawner: {fileID: 809295462}
 --- !u!4 &564406892
 Transform:
   m_ObjectHideFlags: 0
@@ -1567,7 +1569,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 564406890}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.1}
+  m_LocalPosition: {x: 0, y: 0, z: -7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 368296615}
@@ -1708,7 +1710,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1584859173
+  randomSeed: 208405994
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -5268,7 +5270,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 751544483}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: -6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -5823,8 +5825,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea9ef1b8d8ccc47dd925b340e7081c66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_MinObstaclesOnScreen: 5
-  m_MaxObstaclesOnScreen: 10
+  m_MinObstaclesOnScreen: 2
+  m_MaxObstaclesOnScreen: 5
   m_WaveCleaner: {fileID: 1704989658}
   m_Obstacles:
   - {fileID: 1671462316021282, guid: 457e4c5e4f61348fca5b91dd0886b01c, type: 2}
@@ -5846,7 +5848,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1114693212}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: -6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -9776,6 +9778,16 @@ Prefab:
       propertyPath: m_WaveCleaner
       value: 
       objectReference: {fileID: 1704989658}
+    - target: {fileID: 114597898945505706, guid: 224f36429590146388f528dadcfc2e7b,
+        type: 2}
+      propertyPath: m_MinFootTimer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114597898945505706, guid: 224f36429590146388f528dadcfc2e7b,
+        type: 2}
+      propertyPath: m_MaxFootTimer
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 60998618361580510, guid: 224f36429590146388f528dadcfc2e7b, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 224f36429590146388f528dadcfc2e7b, type: 2}
@@ -10042,8 +10054,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40afd380faf2b4b609a3ef89a4b4dc46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_MinWaveTime: 10
-  m_MaxWaveTime: 15
+  m_MinWaveTime: 3
+  m_MaxWaveTime: 7
   m_Foot: {fileID: 1239003481}
   m_BigWaveVolumeRatio: 0
   m_WaveLoop: {fileID: 1039934590}

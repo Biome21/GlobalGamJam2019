@@ -89,4 +89,9 @@ public class ShellSpawner : MonoBehaviour {
 
 		shell.transform.position = new Vector3 (shellPosition.x, shellPosition.y, transform.position.z);
 	}
+
+	public void OnNewHermit(Hermit hermit)
+	{
+		hermit.m_OnShellExplode += OnShellExplode;
+	}
 }
