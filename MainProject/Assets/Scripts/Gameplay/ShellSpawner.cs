@@ -46,29 +46,20 @@ public class ShellSpawner : MonoBehaviour {
 				SpawnShell (i);
 			}
 		}
+
+		for (int i = 0; i < m_ShellsOnScreen.Count; i++)
+		{
+			if (!m_ShellsOnScreen [i].IsPickedUp)
+			{
+				RandomizeShellPosition (m_ShellsOnScreen [i]);
+			}
+		}
 	}
 
 	private void SpawnShell(int fatness)
 	{
-		Shell shell = Instantiate (m_ShellPrefab, transform);
+		Shell shell = Instantiate (m_ShellPrefab, new Vector3(1000f, 1000f, transform.position.z), Quaternion.identity, transform);
 		shell.Init (fatness);
-
-		Vector2 shellSize = shell.GetComponent<PolygonCollider2D> ().bounds.extents;
-		float halfCameraWidth = Camera.main.orthographicSize * Camera.main.aspect;
-		float halfCameraHeight = Camera.main.orthographicSize;
-
-		Collider2D[] hits;
-		Vector3 shellPosition;
-		do
-		{
-			shellPosition = new Vector3 (UnityEngine.Random.Range (-halfCameraWidth + shellSize.x, halfCameraWidth - shellSize.x),
-				UnityEngine.Random.Range (-halfCameraHeight + shellSize.y, halfCameraHeight - shellSize.y),
-				transform.position.z);
-			
-			hits = Physics2D.OverlapCircleAll (shellPosition, Mathf.Max(shellSize.x, shellSize.y), LayerMask.GetMask("Plancton", "Hermit", "Shell"));
-		} while(hits.Length > 0);
-
-		shell.transform.position = new Vector3 (shellPosition.x, shellPosition.y, transform.position.z);
 
 		m_ShellsOnScreen.Add (shell);
 	}
@@ -76,5 +67,26 @@ public class ShellSpawner : MonoBehaviour {
 	private void OnShellExplode(Shell explodedShell)
 	{
 		m_ShellsOnScreen.Remove (explodedShell);		
+	}
+
+	private void RandomizeShellPosition(Shell shell)
+	{
+		Vector2 shellSize = shell.GetComponent<PolygonCollider2D> ().bounds.extents;
+		float halfCameraWidth = Camera.main.orthographicSize * Camera.main.aspect;
+		float halfCameraHeight = Camera.main.orthographicSize;
+
+		Collider2D[] hits;
+		Vector3 shellPosition;
+
+		do
+		{
+			shellPosition = new Vector3 (UnityEngine.Random.Range (-halfCameraWidth + shellSize.x, halfCameraWidth - shellSize.x),
+				UnityEngine.Random.Range (-halfCameraHeight + shellSize.y, halfCameraHeight - shellSize.y),
+				transform.position.z);
+
+			hits = Physics2D.OverlapCircleAll (shellPosition, Mathf.Max(shellSize.x, shellSize.y), LayerMask.GetMask("Plancton", "Hermit", "Shell"));
+		} while(hits.Length > 0);
+
+		shell.transform.position = new Vector3 (shellPosition.x, shellPosition.y, transform.position.z);
 	}
 }
