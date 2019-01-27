@@ -7,6 +7,7 @@ public class BeachOfDespair : MonoBehaviour
 	private const int COUNTDOWN_TIME = 5;
 	private const int MIN_HERMIT_COUNT = 2;
 	private const int GAME_TIME = 120;
+	private const int LOADING_TIME = 3;
 	private const float WINNING_OFFSET_BETWEEN_HERMITS = 0.1f;
 
 	[SerializeField] private TextMesh[] m_Countdown = null;
@@ -18,9 +19,11 @@ public class BeachOfDespair : MonoBehaviour
 	[SerializeField] private AudioSource m_SFXSource = null;
 	[SerializeField] private GameObject m_WinningScreen = null;
 	[SerializeField] private Transform m_WinningHermitsAnchor = null;
+	[SerializeField] private GameObject m_LoadingScreen = null;
 
 	private Timer m_CountdownTimer = new Timer(COUNTDOWN_TIME);
 	private Timer m_GameTimer = new Timer(GAME_TIME);
+	private Timer m_LoadingTimer = new Timer(LOADING_TIME);
 	private bool m_IsGameStarted = false;
 	private bool m_IsGameOver = false;
 
@@ -61,17 +64,34 @@ public class BeachOfDespair : MonoBehaviour
 		SetTextsActive(m_Countdown, false);
 		SetTextsActive(m_GameTimeText, false);
 		m_WinningScreen.SetActive(false);
+		m_LoadingScreen.SetActive(true);
 
 		m_CountdownTimer.m_OnUpdate += UpdateCountdown;
 		m_CountdownTimer.m_OnDone += OnGameStarted;
 		m_GameTimer.m_OnUpdate += UpdateGameTime;
 		m_GameTimer.m_OnDone += OnGameOver;
+		m_LoadingTimer.m_OnDone += OnLoadingDone;
+		m_LoadingTimer.Start();
 	}
 
 	private void Update()
 	{
 		m_CountdownTimer.Update();
 		m_GameTimer.Update();
+		m_LoadingTimer.Update();
+
+		if (m_IsGameOver)
+		{
+			for (int i = 0; i < m_Master.Hermits.Count; ++i)
+			{
+				PlayerInputManager.ControllerInput controller = (PlayerInputManager.ControllerInput)(i + 1);
+				if (PlayerInputManager.Instance.GetButtonDown(controller))
+				{
+					UnityEngine.SceneManagement.SceneManager.LoadScene(0);
+					return;
+				}
+			}
+		}
 	}
 
 	private void OnDestroy()
@@ -80,6 +100,12 @@ public class BeachOfDespair : MonoBehaviour
 		m_CountdownTimer.m_OnDone -= OnGameStarted;
 		m_GameTimer.m_OnUpdate -= UpdateGameTime;
 		m_GameTimer.m_OnDone -= OnGameOver;
+		m_LoadingTimer.m_OnDone -= OnLoadingDone;
+	}
+
+	private void OnLoadingDone()
+	{
+		m_LoadingScreen.SetActive(false);
 	}
 
 	private void UpdateCountdown()

@@ -341,6 +341,7 @@ public class Hermit : MonoBehaviour, IComparable
 	public void OnGameOver()
 	{
 		m_Animation.CrossFade (IDLE_ANIM);
+		Destroy(m_Rigidbody);
 	}
 
 	public int CompareTo(object obj) 
