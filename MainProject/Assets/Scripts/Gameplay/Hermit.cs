@@ -266,7 +266,7 @@ public class Hermit : MonoBehaviour, IComparable
 		m_Beach.SFXSource.PlayOneShot(m_PickupClip);
 		m_PickedUpShell = m_TargetedShell;
 		m_PickedUpShell.transform.SetParent(transform);
-		m_PickedUpShell.transform.position = m_ShellAnchor.position;
+		m_PickedUpShell.transform.position = m_ShellAnchor.position + m_PickedUpShell.m_Shells[m_PickedUpShell.Fatness].Offset;
 		m_PickedUpShell.transform.localEulerAngles = Vector3.zero;
 		m_PickedUpShell.OnPickedUp();
 		m_TargetedShell = null;
