@@ -14,13 +14,21 @@ public class PlanctonSpawner : MonoBehaviour {
 
 	public GameObject m_PlanctonPrefab;
 
+	public WaveCleaner m_WaveCleaner;
+
 	private int m_PlanctonOnScreen = 0;
 	private List<Plancton> m_UnusedPlancton = new List<Plancton>();
 	private List<Plancton> m_UsedPlancton = new List<Plancton>();
 
 	private float m_RefreshTime = 0;
 	private bool m_ShouldSpawn = false;
-	
+
+
+	private void Start()
+	{
+		m_WaveCleaner.m_OnWaveFullScreen += Initialize;
+	}
+
 	// Update is called once per frame
 	private void Update ()
 	{
@@ -88,7 +96,7 @@ public class PlanctonSpawner : MonoBehaviour {
 				UnityEngine.Random.Range (-halfCameraHeight + m_PlanctonSize, halfCameraHeight - m_PlanctonSize),
 				transform.position.z);
 
-			hits = Physics2D.OverlapCircleAll (planctonPosition, m_PlanctonSize, 1 << LayerMask.NameToLayer("Plancton"));
+			hits = Physics2D.OverlapCircleAll (planctonPosition, m_PlanctonSize, LayerMask.GetMask("Plancton", "Hermit", "Shell"));
 		} while(hits.Length > 0);
 
 		Plancton plancton;

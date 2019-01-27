@@ -7,6 +7,14 @@ public class HermitMaster : MonoBehaviour
 	[SerializeField] private Hermit[] m_Hermits = null;
 	[SerializeField] private BeachOfDespair m_BeachOfDespair = null;
 
+	public Hermit[] Hermits
+	{
+		get
+		{
+			return m_Hermits;
+		}
+	}
+
 	private void Awake()
 	{
 		// Hide all hermits on launch

@@ -165,12 +165,32 @@ public class Foot : MonoBehaviour {
 	{
 		m_CurrentState = eFootState.FOOT_ON_GROUND;
 
-		m_FootShadow.gameObject.SetActive (false);
-
 		m_FootOnGroundTimer = m_FootOnGroundTime;
 
 		//ScreenShake
 		//Raycast
+		Collider2D[] results = new Collider2D[4];
+		ContactFilter2D contactFilter = new ContactFilter2D();
+		contactFilter.SetLayerMask (LayerMask.GetMask ("Hermit"));
+		Physics2D.OverlapCollider(m_FootCollider, contactFilter, results);
+
+		for (int i = 0; i < results.Length; i++)
+		{
+			if (results [i] != null) {
+				Hermit hermitCollided = results [i].gameObject.GetComponentInParent<Hermit> ();
+
+				if (hermitCollided != null) {
+					if (hermitCollided.HasShellEquipped) {
+						hermitCollided.ExplodeShell ();
+					} else {
+						//die
+						hermitCollided.Die ();
+					}
+				}
+			}
+		}
+
+		m_FootShadow.gameObject.SetActive (false);
 	}
 
 	private void OnFootHitGroundDone()

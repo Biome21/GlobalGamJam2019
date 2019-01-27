@@ -1,15 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class WaveCleaner : MonoBehaviour {
+
+	public Action m_OnWaveFullScreen;
 
 	[Header("Wave Clean Values")]
 	public float m_MinWaveTime = 10f;
 	public float m_MaxWaveTime = 15f;
 
 	[Header("Managers")]
-	public PlanctonSpawner m_PlanctonSpawner;
 	public Foot m_Foot;
 
 	private bool m_Paused = true;
@@ -61,7 +63,10 @@ public class WaveCleaner : MonoBehaviour {
 
 	private void OnWaveFullScreen()
 	{
-		m_PlanctonSpawner.Initialize ();	
+		if (m_OnWaveFullScreen != null)
+		{
+			m_OnWaveFullScreen ();
+		}	
 	}
 
 	private void OnWaveDone()
