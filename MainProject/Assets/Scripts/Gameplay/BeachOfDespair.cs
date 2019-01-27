@@ -31,6 +31,7 @@ public class BeachOfDespair : MonoBehaviour
 	[SerializeField] private WaveCleaner m_WaveCleaner = null;
 	[SerializeField] private Foot m_Foot = null;
 	[SerializeField] private ShellSpawner m_ShellSpawner = null;
+	[SerializeField] private ObstaclesSpawner m_ObstacleSpawner = null;
 
 	public bool IsGameStarted
 	{
@@ -131,6 +132,7 @@ public class BeachOfDespair : MonoBehaviour
 		m_WaveCleaner.Init ();
 		m_Foot.Init ();
 		m_ShellSpawner.Init ();
+		m_ObstacleSpawner.Init ();
 	}
 
 	public void OnGameOver()

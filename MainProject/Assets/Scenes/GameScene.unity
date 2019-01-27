@@ -422,6 +422,7 @@ MonoBehaviour:
   m_WaveCleaner: {fileID: 1704989658}
   m_Foot: {fileID: 1239003481}
   m_ShellSpawner: {fileID: 809295462}
+  m_ObstacleSpawner: {fileID: 1114693213}
 --- !u!4 &185384724
 Transform:
   m_ObjectHideFlags: 0
