@@ -22,6 +22,7 @@ public class BeachOfDespair : MonoBehaviour
 	[SerializeField] private PlanctonSpawner m_PlanctonSpawner = null;
 	[SerializeField] private WaveCleaner m_WaveCleaner = null;
 	[SerializeField] private Foot m_Foot = null;
+	[SerializeField] private ShellSpawner m_ShellSpawner = null;
 
 	public bool IsGameStarted
 	{
@@ -89,6 +90,7 @@ public class BeachOfDespair : MonoBehaviour
 		m_PlanctonSpawner.Initialize ();
 		m_WaveCleaner.Init ();
 		m_Foot.Init ();
+		m_ShellSpawner.Init ();
 	}
 
 	private void OnGameOver()
