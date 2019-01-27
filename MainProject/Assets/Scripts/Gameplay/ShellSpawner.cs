@@ -84,7 +84,7 @@ public class ShellSpawner : MonoBehaviour {
 				UnityEngine.Random.Range (-halfCameraHeight + shellSize.y, halfCameraHeight - shellSize.y),
 				transform.position.z);
 
-			hits = Physics2D.OverlapCircleAll (shellPosition, Mathf.Max(shellSize.x, shellSize.y), LayerMask.GetMask("Plancton", "Hermit", "Shell"));
+			hits = Physics2D.OverlapCircleAll (shellPosition, Mathf.Max(shellSize.x, shellSize.y), LayerMask.GetMask("Plancton", "Hermit", "Shell", "Obstacle"));
 		} while(hits.Length > 0);
 
 		shell.transform.position = new Vector3 (shellPosition.x, shellPosition.y, transform.position.z);

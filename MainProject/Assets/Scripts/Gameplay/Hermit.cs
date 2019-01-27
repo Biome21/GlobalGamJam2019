@@ -214,6 +214,7 @@ public class Hermit : MonoBehaviour
 	{
 		Food = 0;
 		Fatness = 0;
+		UpdateFatness ();
 	}
 
 	private void UpdateFatness()

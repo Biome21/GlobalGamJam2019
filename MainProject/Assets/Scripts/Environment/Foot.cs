@@ -47,6 +47,7 @@ public class Foot : MonoBehaviour {
 	{
 		m_FootCollider = GetComponentInChildren<PolygonCollider2D> ();
 		m_FootShadow.gameObject.SetActive (false);
+		m_FootCollider.enabled = false;
 		m_FootHiddenPosition = m_Foot.transform.localPosition;
 	}
 	

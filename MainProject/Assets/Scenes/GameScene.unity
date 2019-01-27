@@ -5439,6 +5439,64 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!1 &1114693212
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 1709453943180416, guid: a09ed554b2ef44cf9900fbcdfe72cfdf,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1114693214}
+  - component: {fileID: 1114693213}
+  m_Layer: 0
+  m_Name: ObstacleSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1114693213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 114452131297095066, guid: a09ed554b2ef44cf9900fbcdfe72cfdf,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1114693212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea9ef1b8d8ccc47dd925b340e7081c66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_MinObstaclesOnScreen: 5
+  m_MaxObstaclesOnScreen: 10
+  m_WaveCleaner: {fileID: 1704989658}
+  m_Obstacles:
+  - {fileID: 1671462316021282, guid: 457e4c5e4f61348fca5b91dd0886b01c, type: 2}
+  - {fileID: 1414471109343228, guid: 59353e44c63e7424b84930fe951029ef, type: 2}
+  - {fileID: 1618489154298492, guid: 1a1aecc136015452197f522c414f32ff, type: 2}
+  - {fileID: 1893999426166640, guid: 4f0a7012a939b42998d9363e0df1428b, type: 2}
+  - {fileID: 1058435359525124, guid: 5ac5b67ac69a144e5bde92709f420973, type: 2}
+  - {fileID: 1328698841104808, guid: 65708f67203584a208022f2dd7314fd6, type: 2}
+  - {fileID: 1498041013640158, guid: 70566676a412d4683bd579643ccb0ee1, type: 2}
+  - {fileID: 1993357275013610, guid: 9c046efba71534d0990b3c1e4cee5c7a, type: 2}
+  - {fileID: 1739788096659710, guid: 6177a57fc5aab4ed58f749972820e4cb, type: 2}
+  - {fileID: 1247479481521754, guid: 03e58f3d95556416cbe1b5f3c82d89c2, type: 2}
+  - {fileID: 1293190956368390, guid: c91c76aafe274441f8ac0b335c3aa93e, type: 2}
+--- !u!4 &1114693214
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 4888429913650038, guid: a09ed554b2ef44cf9900fbcdfe72cfdf,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1114693212}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 13
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1181183846
 GameObject:
   m_ObjectHideFlags: 0
