@@ -1172,8 +1172,8 @@ MonoBehaviour:
   - {fileID: 1302078632}
   - {fileID: 194525707}
   m_BeachOfDespair: {fileID: 185384723}
-  m_SelectClip: {fileID: 0}
-  m_UnselectClip: {fileID: 0}
+  m_SelectClip: {fileID: 8300000, guid: ec095c85680fd46ecbb352bc813868ff, type: 3}
+  m_UnselectClip: {fileID: 8300000, guid: f0482d5bce9094060b2d42c6d9abaa41, type: 3}
 --- !u!4 &564406892
 Transform:
   m_ObjectHideFlags: 0
