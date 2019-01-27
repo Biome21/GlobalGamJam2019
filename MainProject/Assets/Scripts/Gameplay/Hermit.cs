@@ -1,12 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Hermit : MonoBehaviour
 {
 	private readonly float[] VELOCITIES = new float[]{8.0f, 7.5f, 7.0f, 6.5f, 6.0f};
 	private readonly float[] WALK_SPEEDS = new float[]{8.0f, 7.0f, 6.0f, 5.0f, 4.0f};
-	private const int MAXIMUM_FATNESS = 5;
+	public const int MAXIMUM_FATNESS = 5;
 	private const int FOOD_PER_FATNESS = 3;
 	private const int MAX_FOOD = (MAXIMUM_FATNESS - 1) * FOOD_PER_FATNESS;
 	private const float MIN_SCALE = 0.3f;
@@ -14,6 +15,8 @@ public class Hermit : MonoBehaviour
 	private const string WALK_ANIM = "Walk";
 	private const string IDLE_ANIM = "Idle";
 	private const float SHELL_PICKUP_RADIUS_EXT = 1.0f;
+
+	public Action<Shell> m_OnShellExplode;
 
 	[SerializeField] private Transform m_ShellAnchor = null;
 	[SerializeField] private Transform m_Body = null;
@@ -81,6 +84,14 @@ public class Hermit : MonoBehaviour
 		get
 		{
 			return m_IsReady;
+		}
+	}
+
+	public bool HasShellEquipped
+	{
+		get
+		{
+			return m_PickedUpShell != null;
 		}
 	}
 
@@ -160,14 +171,29 @@ public class Hermit : MonoBehaviour
 			Food = 0;
 			++Fatness;
 
-			// Explode the shell!!!
-			// TODO: Explode animation of the shell
-			Destroy(m_PickedUpShell.gameObject);
-			m_PickedUpShell = null;
+			ExplodeShell ();
 		}
 
 		// TODO: Pop animation 
 		UpdateFatness();
+	}
+
+	public void ExplodeShell()
+	{
+		if (m_OnShellExplode != null)
+		{
+			m_OnShellExplode (m_PickedUpShell);
+		}		
+		// Explode the shell!!!
+		// TODO: Explode animation of the shell
+		Destroy(m_PickedUpShell.gameObject);
+		m_PickedUpShell = null;
+	}
+
+	public void Die()
+	{
+		Food = 0;
+		Fatness = 0;
 	}
 
 	private void UpdateFatness()
