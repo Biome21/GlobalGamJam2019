@@ -15,6 +15,7 @@ public class BeachOfDespair : MonoBehaviour
 	[SerializeField] private GameObject m_NeedMoreHermitsText = null;
 	[SerializeField] private TextMesh[] m_GameTimeText = null;
 	[SerializeField] private AudioSource m_SFXSource = null;
+	[SerializeField] private GameObject m_WinningScreen = null;
 	private Timer m_CountdownTimer = new Timer(COUNTDOWN_TIME);
 	private Timer m_GameTimer = new Timer(GAME_TIME);
 	private bool m_IsGameStarted = false;

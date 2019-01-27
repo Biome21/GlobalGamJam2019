@@ -5,6 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class SpriteList
 {
+	public Vector3 Offset = Vector3.zero;
 	public Sprite[] Sprites = null;
 }
 

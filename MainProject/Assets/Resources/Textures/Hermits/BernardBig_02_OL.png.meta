@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: e49cbab534e814afda4e34343802f9a2
+guid: 0d59b3db5d471415f929de959854c700
 TextureImporter:
   fileIDToRecycleName: {}
   externalObjects: {}
@@ -80,7 +80,7 @@ TextureImporter:
     sprites: []
     outline: []
     physicsShape: []
-  spritePackingTag: SHELLS
+  spritePackingTag: HERMIT
   userData: 
   assetBundleName: 
   assetBundleVariant: 
