@@ -25,6 +25,7 @@ public class WaveCleaner : MonoBehaviour {
 	private bool m_Paused = true;
 	private float m_WaveTimer;
 	private Animation m_WaveCleanAnimation;
+	private bool m_HasWavePending = false;
 
 	// Use this for initialization
 	private void Start ()
@@ -35,13 +36,13 @@ public class WaveCleaner : MonoBehaviour {
 	// Update is called once per frame
 	private void Update ()
 	{
-		if (!m_Paused)
+		if (!m_Paused && !m_HasWavePending)
 		{
 			m_WaveTimer -= Time.deltaTime;
 
 			if (m_WaveTimer <= 0)
 			{
-				StartWave ();
+				m_HasWavePending = true;
 			}
 		}
 
@@ -65,11 +66,15 @@ public class WaveCleaner : MonoBehaviour {
 		m_Paused = false;
 	}
 
-	private void StartWave()
+	public void StartWave()
 	{
-		m_Paused = true;
-		m_Foot.Stop ();
-		m_WaveCleanAnimation.Play ();
+		if (m_HasWavePending)
+		{
+			m_HasWavePending = false;
+			m_Paused = true;
+			m_Foot.Stop ();
+			m_WaveCleanAnimation.Play ();
+		}
 	}
 
 	private void OnWaveFullScreen()

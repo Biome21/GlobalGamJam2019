@@ -114,7 +114,6 @@ public class Foot : MonoBehaviour {
 	private void StartFootShadow()
 	{
 		m_Paused = true;
-		m_WaveCleaner.Stop();
 
 		m_FootShadow.gameObject.SetActive (true);
 		//Find a spot on screen
@@ -216,6 +215,6 @@ public class Foot : MonoBehaviour {
 		m_Paused = false;
 		m_CurrentState = eFootState.IDLE;
 		m_FootIdleTimer = UnityEngine.Random.Range (m_MinFootTimer, m_MaxFootTimer);
-		m_WaveCleaner.Resume ();
+		m_WaveCleaner.StartWave ();
 	}
 }
