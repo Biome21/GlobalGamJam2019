@@ -418,6 +418,8 @@ MonoBehaviour:
   m_WinningScreen: {fileID: 424099877}
   m_WinningHermitsAnchor: {fileID: 1789224415}
   m_LoadingScreen: {fileID: 1303093812}
+  m_MedalPrefab: {fileID: 1854615297466422, guid: 4b120ab256a09418da0e00d151df8ce8,
+    type: 2}
   m_PlanctonSpawner: {fileID: 85356828}
   m_WaveCleaner: {fileID: 1704989658}
   m_Foot: {fileID: 1239003481}
@@ -6100,7 +6102,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1950060694
+  randomSeed: -245018488
   InitialModule:
     serializedVersion: 3
     enabled: 1
