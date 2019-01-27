@@ -157,9 +157,6 @@ public class Hermit : MonoBehaviour, IComparable
 		m_Rigidbody.MovePosition(position);
 
 		HandleShellPickup();
-
-		m_ThoughtBubble.gameObject.SetActive (true);
-		m_ThoughtBubble.SetIcon (Fatness);
 	}
 
 	private void OnTriggerEnter2D(Collider2D collider)
@@ -189,6 +186,8 @@ public class Hermit : MonoBehaviour, IComparable
 
 	private void OnReady()
 	{
+		m_ThoughtBubble.gameObject.SetActive (true);
+		m_ThoughtBubble.SetIcon (Fatness);		
 	}
 
 	private void OnNotReady()
@@ -204,6 +203,7 @@ public class Hermit : MonoBehaviour, IComparable
 
 			ExplodeShell ();
 
+			m_ThoughtBubble.gameObject.SetActive (true);
 			m_ThoughtBubble.SetIcon (Fatness);
 		}
 		else
@@ -280,6 +280,8 @@ public class Hermit : MonoBehaviour, IComparable
 		m_PickedUpShell.transform.localEulerAngles = Vector3.zero;
 		m_PickedUpShell.OnPickedUp();
 		m_TargetedShell = null;
+
+		m_ThoughtBubble.gameObject.SetActive (false);
 
 		if (Fatness == MAXIMUM_FATNESS - 1)
 		{
