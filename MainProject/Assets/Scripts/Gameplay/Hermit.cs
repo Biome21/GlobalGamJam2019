@@ -8,7 +8,7 @@ public class Hermit : MonoBehaviour
 	private readonly float[] VELOCITIES = new float[]{8.0f, 7.5f, 7.0f, 6.5f, 6.0f};
 	private readonly float[] WALK_SPEEDS = new float[]{8.0f, 7.0f, 6.0f, 5.0f, 4.0f};
 	public const int MAXIMUM_FATNESS = 5;
-	private const int FOOD_PER_FATNESS = 4;
+	private const int FOOD_PER_FATNESS = 5;
 	private const int MAX_FOOD = (MAXIMUM_FATNESS - 1) * FOOD_PER_FATNESS;
 	private const float MIN_SCALE = 0.3f;
 	private const float MAX_SCALE = 0.8f;
@@ -25,6 +25,9 @@ public class Hermit : MonoBehaviour
 	[SerializeField] private SpriteRenderer m_GrayscaleSprite = null;
 	[SerializeField] private Animation m_Animation = null;
 	[SerializeField] private CircleCollider2D m_Collider = null;
+	[SerializeField] private AudioClip[] m_EatClips = null;
+	[SerializeField] private AudioClip m_BreakClip = null;
+	[SerializeField] private AudioClip m_PickupClip = null;
 	private BeachOfDespair m_Beach = null;
 	private Rigidbody2D m_Rigidbody = null;
 	private int m_Fatness = 0;
@@ -189,6 +192,7 @@ public class Hermit : MonoBehaviour
 			m_Animation.Play(POP_ANIM);
 		}
 
+		m_Beach.SFXSource.PlayOneShot(m_EatClips[UnityEngine.Random.Range(0, m_EatClips.Length)]);
 		UpdateFatness();
 	}
 
@@ -203,6 +207,7 @@ public class Hermit : MonoBehaviour
 		m_PickedUpShell = null;
 		m_Animation[EXPLODE_ANIM].layer = 1;
 		m_Animation.Play(EXPLODE_ANIM);
+		m_Beach.SFXSource.PlayOneShot(m_BreakClip);
 	}
 
 	public void Die()
@@ -221,6 +226,7 @@ public class Hermit : MonoBehaviour
 
 	private void OnShellPickedUp()
 	{
+		m_Beach.SFXSource.PlayOneShot(m_PickupClip);
 		m_PickedUpShell = m_TargetedShell;
 		m_PickedUpShell.transform.SetParent(transform);
 		m_PickedUpShell.transform.position = m_ShellAnchor.position;
