@@ -10,8 +10,8 @@ public class Hermit : MonoBehaviour
 	public const int MAXIMUM_FATNESS = 5;
 	private const int FOOD_PER_FATNESS = 5;
 	private const int MAX_FOOD = (MAXIMUM_FATNESS - 1) * FOOD_PER_FATNESS;
-	private const float MIN_SCALE = 0.3f;
-	private const float MAX_SCALE = 0.8f;
+	private const float MIN_SCALE = 0.4f;
+	private const float MAX_SCALE = 1.0f;
 	private const string WALK_ANIM = "Walk";
 	private const string IDLE_ANIM = "Idle";
 	private const string POP_ANIM = "Pop";
