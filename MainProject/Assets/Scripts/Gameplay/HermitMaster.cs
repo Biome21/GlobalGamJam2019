@@ -8,6 +8,7 @@ public class HermitMaster : MonoBehaviour
 	[SerializeField] private BeachOfDespair m_BeachOfDespair = null;
 	[SerializeField] private AudioClip m_SelectClip = null;
 	[SerializeField] private AudioClip m_UnselectClip = null;
+	[SerializeField] private ShellSpawner m_ShellSpawner = null;
 
 	public List<Hermit> Hermits
 	{
@@ -80,8 +81,10 @@ public class HermitMaster : MonoBehaviour
 	private void OnHermitDied(Hermit hermit)
 	{
 		Hermit newHermit = Instantiate (hermit, transform);
+		newHermit.m_OnHermitDied += OnHermitDied;
 		newHermit.OnControllerReady (hermit.Controller);
 		m_Hermits.Add (newHermit);
 		newHermit.Reset ();
+		m_ShellSpawner.OnNewHermit (newHermit);
 	}
 }
