@@ -8,7 +8,7 @@ public class BeachOfDespair : MonoBehaviour
 	private const int MIN_HERMIT_COUNT = 2;
 	private const int GAME_TIME = 120;
 	private const int LOADING_TIME = 3;
-	private const float WINNING_OFFSET_BETWEEN_HERMITS = 0.1f;
+	private const float WINNING_OFFSET_BETWEEN_HERMITS = 0.25f;
 
 	[SerializeField] private TextMesh[] m_Countdown = null;
 	[SerializeField] private HermitMaster m_Master = null;

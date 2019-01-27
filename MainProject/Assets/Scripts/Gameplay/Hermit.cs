@@ -340,6 +340,7 @@ public class Hermit : MonoBehaviour, IComparable
 
 	public void OnGameOver()
 	{
+		m_ThoughtBubble.gameObject.SetActive(false);
 		m_Animation.CrossFade (IDLE_ANIM);
 		Destroy(m_Rigidbody);
 	}
