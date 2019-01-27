@@ -15,7 +15,7 @@ public class ShellSpawner : MonoBehaviour {
 	{
 		m_WaveCleaner.m_OnWaveFullScreen +=	OnWaveFullScreen;
 
-		for (int i = 0; i < m_HermitMaster.Hermits.Length; i++)
+		for (int i = 0; i < m_HermitMaster.Hermits.Count; i++)
 		{
 			m_HermitMaster.Hermits [i].m_OnShellExplode += OnShellExplode;
 		}

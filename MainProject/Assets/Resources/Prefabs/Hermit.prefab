@@ -212,8 +212,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1459709960223872}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -4.5, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4041146625544238}
@@ -287,6 +287,8 @@ MonoBehaviour:
   m_ShellAnchor: {fileID: 4783141600589554}
   m_Body: {fileID: 4041146625544238}
   m_GrayscaleSprite: {fileID: 212873199478554478}
+  m_OverlaySprite: {fileID: 212179098227383952}
+  m_DeadSprite: {fileID: 21300000, guid: 7cfbfdec01ca44275ae489c31817e8c0, type: 3}
   m_Animation: {fileID: 111240431559413554}
   m_Collider: {fileID: 58919559651911360}
   m_EatClips:

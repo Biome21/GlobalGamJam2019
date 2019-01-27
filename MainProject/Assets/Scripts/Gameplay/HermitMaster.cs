@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class HermitMaster : MonoBehaviour 
 {
-	[SerializeField] private Hermit[] m_Hermits = null;
+	[SerializeField] private List<Hermit> m_Hermits = new List<Hermit> ();
 	[SerializeField] private BeachOfDespair m_BeachOfDespair = null;
 	[SerializeField] private AudioClip m_SelectClip = null;
 	[SerializeField] private AudioClip m_UnselectClip = null;
 
-	public Hermit[] Hermits
+	public List<Hermit> Hermits
 	{
 		get
 		{
@@ -20,8 +20,9 @@ public class HermitMaster : MonoBehaviour
 	private void Awake()
 	{
 		// Hide all hermits on launch
-		for (int i = 0; i < m_Hermits.Length; ++i)
+		for (int i = 0; i < m_Hermits.Count; ++i)
 		{
+			m_Hermits [i].m_OnHermitDied += OnHermitDied;
 			m_Hermits[i].gameObject.SetActive(false);
 		}
 	}
@@ -34,7 +35,7 @@ public class HermitMaster : MonoBehaviour
 		}
 
 		bool controllerStateChanged = false;
-		for (int i = 0; i < m_Hermits.Length; ++i)
+		for (int i = 0; i < m_Hermits.Count; ++i)
 		{
 			PlayerInputManager.ControllerInput controller = (PlayerInputManager.ControllerInput)(i + 1);
 			if (PlayerInputManager.Instance.GetButtonDown(controller))
@@ -65,7 +66,7 @@ public class HermitMaster : MonoBehaviour
 	public int GetHermitReadyCount()
 	{
 		int hermitReadyCount = 0;
-		for (int i = 0; i < m_Hermits.Length; ++i)
+		for (int i = 0; i < m_Hermits.Count; ++i)
 		{
 			if (m_Hermits[i].IsReady)
 			{
@@ -74,5 +75,13 @@ public class HermitMaster : MonoBehaviour
 		}
 
 		return hermitReadyCount;
+	}
+
+	private void OnHermitDied(Hermit hermit)
+	{
+		Hermit newHermit = Instantiate (hermit, transform);
+		newHermit.OnControllerReady (hermit.Controller);
+		m_Hermits.Add (newHermit);
+		newHermit.Reset ();
 	}
 }
