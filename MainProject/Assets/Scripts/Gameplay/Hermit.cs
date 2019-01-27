@@ -7,12 +7,14 @@ public class Hermit : MonoBehaviour
 	private readonly float[] VELOCITIES = new float[]{8.0f, 7.5f, 7.0f, 6.5f, 6.0f};
 	private readonly float[] WALK_SPEEDS = new float[]{8.0f, 7.0f, 6.0f, 5.0f, 4.0f};
 	private const int MAXIMUM_FATNESS = 5;
-	private const int FOOD_PER_FATNESS = 3;
+	private const int FOOD_PER_FATNESS = 4;
 	private const int MAX_FOOD = (MAXIMUM_FATNESS - 1) * FOOD_PER_FATNESS;
 	private const float MIN_SCALE = 0.3f;
 	private const float MAX_SCALE = 0.8f;
 	private const string WALK_ANIM = "Walk";
 	private const string IDLE_ANIM = "Idle";
+	private const string POP_ANIM = "Pop";
+	private const string EXPLODE_ANIM = "Explode";
 	private const float SHELL_PICKUP_RADIUS_EXT = 1.0f;
 
 	[SerializeField] private Transform m_ShellAnchor = null;
@@ -20,6 +22,7 @@ public class Hermit : MonoBehaviour
 	[SerializeField] private SpriteRenderer m_GrayscaleSprite = null;
 	[SerializeField] private Animation m_Animation = null;
 	[SerializeField] private CircleCollider2D m_Collider = null;
+	private BeachOfDespair m_Beach = null;
 	private Rigidbody2D m_Rigidbody = null;
 	private int m_Fatness = 0;
 	private int m_Food = 0;
@@ -88,6 +91,9 @@ public class Hermit : MonoBehaviour
 	{
 		m_Rigidbody = GetComponent<Rigidbody2D>();
 		UpdateFatness();
+
+		// Fuck it
+		m_Beach = FindObjectOfType<BeachOfDespair>();
 	}
 
 	private void Start()
@@ -97,17 +103,21 @@ public class Hermit : MonoBehaviour
 
 	private void Update()
 	{
-		//PlayerInputManager.Instance.DebugButton();
+		if (m_Beach != null && !m_Beach.IsGameStarted)
+		{
+			return;
+		}
 
 		Vector2 joystick = PlayerInputManager.Instance.GetLeftJoystick(m_Controller);
 		Vector3 position = m_Rigidbody.position;
 		position.x += Velocity * joystick.x * Time.deltaTime;
 		position.y += Velocity * joystick.y * Time.deltaTime;
 
-		if (joystick.sqrMagnitude > 0.0f)
+		float magnitude = joystick.magnitude;
+		if (magnitude > 0.0f)
 		{
 			m_Animation.CrossFade(WALK_ANIM);
-			m_Animation[WALK_ANIM].speed = WalkSpeed;
+			m_Animation[WALK_ANIM].speed = WalkSpeed * magnitude;
 		}
 		else
 		{
@@ -161,12 +171,17 @@ public class Hermit : MonoBehaviour
 			++Fatness;
 
 			// Explode the shell!!!
-			// TODO: Explode animation of the shell
 			Destroy(m_PickedUpShell.gameObject);
 			m_PickedUpShell = null;
+			m_Animation[EXPLODE_ANIM].layer = 1;
+			m_Animation.Play(EXPLODE_ANIM);
+		}
+		else
+		{
+			m_Animation[POP_ANIM].layer = 1;
+			m_Animation.Play(POP_ANIM);
 		}
 
-		// TODO: Pop animation 
 		UpdateFatness();
 	}
 

@@ -228,7 +228,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 100432187}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -1.09, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 33938861}
@@ -353,7 +353,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4881546333737562, guid: 4a23f413c2b884c7bb85ee785baf2ce6, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -2
+      value: 4.5
       objectReference: {fileID: 0}
     - target: {fileID: 4881546333737562, guid: 4a23f413c2b884c7bb85ee785baf2ce6, type: 2}
       propertyPath: m_LocalPosition.y
@@ -394,7 +394,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1459709960223872, guid: 4a23f413c2b884c7bb85ee785baf2ce6, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 212873199478554478, guid: 4a23f413c2b884c7bb85ee785baf2ce6,
         type: 2}
@@ -730,11 +730,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4881546333737562, guid: 4a23f413c2b884c7bb85ee785baf2ce6, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -4.5
       objectReference: {fileID: 0}
     - target: {fileID: 4881546333737562, guid: 4a23f413c2b884c7bb85ee785baf2ce6, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4881546333737562, guid: 4a23f413c2b884c7bb85ee785baf2ce6, type: 2}
       propertyPath: m_LocalPosition.z
@@ -771,7 +771,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1459709960223872, guid: 4a23f413c2b884c7bb85ee785baf2ce6, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4a23f413c2b884c7bb85ee785baf2ce6, type: 2}
@@ -966,11 +966,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4619737368506946, guid: 8001dc366f3be4c76955ee39ab529427, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 2.96
+      value: 6.97
       objectReference: {fileID: 0}
     - target: {fileID: 4619737368506946, guid: 8001dc366f3be4c76955ee39ab529427, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0.05
+      value: -1.6
       objectReference: {fileID: 0}
     - target: {fileID: 4619737368506946, guid: 8001dc366f3be4c76955ee39ab529427, type: 2}
       propertyPath: m_LocalPosition.z
@@ -8501,11 +8501,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4881546333737562, guid: 4a23f413c2b884c7bb85ee785baf2ce6, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 4881546333737562, guid: 4a23f413c2b884c7bb85ee785baf2ce6, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4881546333737562, guid: 4a23f413c2b884c7bb85ee785baf2ce6, type: 2}
       propertyPath: m_LocalPosition.z
@@ -8542,7 +8542,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1459709960223872, guid: 4a23f413c2b884c7bb85ee785baf2ce6, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 212873199478554478, guid: 4a23f413c2b884c7bb85ee785baf2ce6,
         type: 2}
@@ -8686,7 +8686,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4881546333737562, guid: 4a23f413c2b884c7bb85ee785baf2ce6, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 2
+      value: -1.5
       objectReference: {fileID: 0}
     - target: {fileID: 4881546333737562, guid: 4a23f413c2b884c7bb85ee785baf2ce6, type: 2}
       propertyPath: m_LocalPosition.y
@@ -8727,7 +8727,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1459709960223872, guid: 4a23f413c2b884c7bb85ee785baf2ce6, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 212873199478554478, guid: 4a23f413c2b884c7bb85ee785baf2ce6,
         type: 2}
