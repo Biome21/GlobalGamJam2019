@@ -210,8 +210,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8dbc402291c4a4a998620f9669252987, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_MinPlanctonOnScreen: 5
-  m_MaxPlanctonOnScreen: 10
+  m_MinPlanctonOnScreen: 3
+  m_MaxPlanctonOnScreen: 5
   m_MinRefreshTime: 2
   m_MaxRefreshTime: 5
   m_PlanctonSize: 1
@@ -9539,6 +9539,16 @@ Prefab:
       propertyPath: m_WaveCleaner
       value: 
       objectReference: {fileID: 1704989658}
+    - target: {fileID: 114597898945505706, guid: 224f36429590146388f528dadcfc2e7b,
+        type: 2}
+      propertyPath: m_MinFootTimer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114597898945505706, guid: 224f36429590146388f528dadcfc2e7b,
+        type: 2}
+      propertyPath: m_MaxFootTimer
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 60998618361580510, guid: 224f36429590146388f528dadcfc2e7b, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 224f36429590146388f528dadcfc2e7b, type: 2}
@@ -9890,8 +9900,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40afd380faf2b4b609a3ef89a4b4dc46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_MinWaveTime: 10
-  m_MaxWaveTime: 15
+  m_MinWaveTime: 5
+  m_MaxWaveTime: 10
   m_Foot: {fileID: 1239003481}
   m_BigWaveVolumeRatio: 0
   m_WaveLoop: {fileID: 1039934590}
