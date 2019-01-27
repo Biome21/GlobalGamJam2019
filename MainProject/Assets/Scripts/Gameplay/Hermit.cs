@@ -19,10 +19,13 @@ public class Hermit : MonoBehaviour
 	private const float SHELL_PICKUP_RADIUS_EXT = 1.0f;
 
 	public Action<Shell> m_OnShellExplode;
+	public Action<Hermit> m_OnHermitDied;
 
 	[SerializeField] private Transform m_ShellAnchor = null;
 	[SerializeField] private Transform m_Body = null;
 	[SerializeField] private SpriteRenderer m_GrayscaleSprite = null;
+	[SerializeField] private SpriteRenderer m_OverlaySprite = null;
+	[SerializeField] private Sprite m_DeadSprite = null;
 	[SerializeField] private Animation m_Animation = null;
 	[SerializeField] private CircleCollider2D m_Collider = null;
 	[SerializeField] private AudioClip[] m_EatClips = null;
@@ -36,6 +39,7 @@ public class Hermit : MonoBehaviour
 	private bool m_IsReady = false;
 	private Shell m_TargetedShell = null;
 	private Shell m_PickedUpShell = null;
+	private bool m_IsDead = false;
 
 	public int Fatness
 	{
@@ -101,6 +105,14 @@ public class Hermit : MonoBehaviour
 		}
 	}
 
+	public PlayerInputManager.ControllerInput Controller
+	{
+		get
+		{
+			return m_Controller;
+		}
+	}
+
 	private void Awake()
 	{
 		m_Rigidbody = GetComponent<Rigidbody2D>();
@@ -117,7 +129,7 @@ public class Hermit : MonoBehaviour
 
 	private void Update()
 	{
-		if (m_Beach != null && !m_Beach.IsGameStarted)
+		if ((m_Beach != null && !m_Beach.IsGameStarted) || m_IsDead)
 		{
 			return;
 		}
@@ -212,9 +224,33 @@ public class Hermit : MonoBehaviour
 
 	public void Die()
 	{
-		Food = 0;
-		Fatness = 0;
-		UpdateFatness ();
+		if (!m_IsDead)
+		{
+			if (m_OnHermitDied != null) {
+				m_OnHermitDied (this);
+			}
+
+			Food = 0;
+			Fatness = 0;
+			UpdateFatness ();
+
+			m_GrayscaleSprite.sprite = m_DeadSprite;
+			m_GrayscaleSprite.material.shader = Shader.Find ("Sprites/Default");
+			m_GrayscaleSprite.color = Color.white;
+			m_OverlaySprite.gameObject.SetActive (false);
+
+			m_Animation.CrossFade (IDLE_ANIM);
+
+			m_Collider.enabled = false;
+			Destroy (GetComponent<Rigidbody2D> ());
+
+			m_IsDead = true;
+			m_IsReady = false;
+		}
+	}
+
+	public void Reset()
+	{
 	}
 
 	private void UpdateFatness()
