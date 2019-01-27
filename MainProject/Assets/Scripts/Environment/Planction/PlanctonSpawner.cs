@@ -96,7 +96,7 @@ public class PlanctonSpawner : MonoBehaviour {
 				UnityEngine.Random.Range (-halfCameraHeight + m_PlanctonSize, halfCameraHeight - m_PlanctonSize),
 				transform.position.z);
 
-			hits = Physics2D.OverlapCircleAll (planctonPosition, m_PlanctonSize, LayerMask.GetMask("Plancton", "Hermit", "Shell"));
+			hits = Physics2D.OverlapCircleAll (planctonPosition, m_PlanctonSize, LayerMask.GetMask("Plancton", "Hermit", "Shell", "Obstacle"));
 		} while(hits.Length > 0);
 
 		Plancton plancton;

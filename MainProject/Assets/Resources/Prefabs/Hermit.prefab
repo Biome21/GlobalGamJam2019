@@ -289,6 +289,12 @@ MonoBehaviour:
   m_GrayscaleSprite: {fileID: 212873199478554478}
   m_Animation: {fileID: 111240431559413554}
   m_Collider: {fileID: 58919559651911360}
+  m_EatClips:
+  - {fileID: 8300000, guid: 086eaf4e2bc9f4a71872d2dbbe806f64, type: 3}
+  - {fileID: 8300000, guid: d2ae009f5be1d4d1283c718911e0cca9, type: 3}
+  - {fileID: 8300000, guid: 888f13a3b2af847678a587e5c3ea58b8, type: 3}
+  m_BreakClip: {fileID: 8300000, guid: 32d1240eccc8045aaab02b5258fdd5b7, type: 3}
+  m_PickupClip: {fileID: 8300000, guid: cd2e6da57fce349d7b1ccee5920f8de4, type: 3}
 --- !u!212 &212179098227383952
 SpriteRenderer:
   m_ObjectHideFlags: 1

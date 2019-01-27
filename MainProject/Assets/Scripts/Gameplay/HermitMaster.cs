@@ -6,6 +6,8 @@ public class HermitMaster : MonoBehaviour
 {
 	[SerializeField] private Hermit[] m_Hermits = null;
 	[SerializeField] private BeachOfDespair m_BeachOfDespair = null;
+	[SerializeField] private AudioClip m_SelectClip = null;
+	[SerializeField] private AudioClip m_UnselectClip = null;
 
 	public Hermit[] Hermits
 	{
@@ -42,6 +44,15 @@ public class HermitMaster : MonoBehaviour
 				hermit.SetActive(!hermit.activeSelf);
 				m_Hermits[i].OnControllerReady(controller);
 				// TODO: Remap the keyboard as well
+
+				if (hermit.activeSelf)
+				{
+					m_BeachOfDespair.SFXSource.PlayOneShot(m_SelectClip);
+				}
+				else
+				{
+					m_BeachOfDespair.SFXSource.PlayOneShot(m_UnselectClip);
+				}
 			}
 		}
 

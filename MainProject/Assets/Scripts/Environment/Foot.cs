@@ -47,6 +47,7 @@ public class Foot : MonoBehaviour {
 	{
 		m_FootCollider = GetComponentInChildren<PolygonCollider2D> ();
 		m_FootShadow.gameObject.SetActive (false);
+		m_FootCollider.enabled = false;
 		m_FootHiddenPosition = m_Foot.transform.localPosition;
 	}
 	
@@ -172,6 +173,8 @@ public class Foot : MonoBehaviour {
 		Collider2D[] results = new Collider2D[4];
 		ContactFilter2D contactFilter = new ContactFilter2D();
 		contactFilter.SetLayerMask (LayerMask.GetMask ("Hermit"));
+		m_FootCollider.transform.position = m_FootShadow.transform.position;
+		m_FootCollider.enabled = true;
 		Physics2D.OverlapCollider(m_FootCollider, contactFilter, results);
 
 		for (int i = 0; i < results.Length; i++)
@@ -204,7 +207,8 @@ public class Foot : MonoBehaviour {
 	{
 		Vector3 footLocalPosition = Vector3.Lerp (m_FootShadow.transform.localPosition, m_FootStartPosition, m_FootLiftRatio);
 		footLocalPosition.z = m_Foot.localPosition.z;
-		m_Foot.localPosition = footLocalPosition;		
+		m_Foot.localPosition = footLocalPosition;
+		m_FootCollider.enabled = false;
 	}
 
 	private void OnFootAnimationDone()
