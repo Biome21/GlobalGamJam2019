@@ -8,7 +8,7 @@ public class Hermit : MonoBehaviour
 	private readonly float[] WALK_SPEEDS = new float[]{8.0f, 7.0f, 6.0f, 5.0f, 4.0f};
 	private const int MAXIMUM_FATNESS = 5;
 	private const int FOOD_PER_FATNESS = 3;
-	private const int MAX_FOOD = MAXIMUM_FATNESS * FOOD_PER_FATNESS;
+	private const int MAX_FOOD = (MAXIMUM_FATNESS - 1) * FOOD_PER_FATNESS;
 	private const float MIN_SCALE = 0.3f;
 	private const float MAX_SCALE = 0.8f;
 	private const string WALK_ANIM = "Walk";
@@ -123,7 +123,7 @@ public class Hermit : MonoBehaviour
 	private void OnTriggerEnter2D(Collider2D collider)
 	{
 		Plancton plancton = collider.GetComponentInParent<Plancton>();
-		if (plancton != null)
+		if (plancton != null && m_PickedUpShell != null)
 		{
 			OnEatFood();
 			plancton.Die();
@@ -159,8 +159,14 @@ public class Hermit : MonoBehaviour
 		{
 			Food = 0;
 			++Fatness;
+
+			// Explode the shell!!!
+			// TODO: Explode animation of the shell
+			Destroy(m_PickedUpShell.gameObject);
+			m_PickedUpShell = null;
 		}
 
+		// TODO: Pop animation 
 		UpdateFatness();
 	}
 

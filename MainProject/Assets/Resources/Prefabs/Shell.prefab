@@ -151,6 +151,18 @@ MonoBehaviour:
   m_SpriteRenderer: {fileID: 212638369462025102}
   m_Sprite: {fileID: 21300000, guid: e49cbab534e814afda4e34343802f9a2, type: 3}
   m_Animation: {fileID: 111666986350881100}
+  m_DebugFatness: 0
+  m_Shells:
+  - Sprites:
+    - {fileID: 21300000, guid: f5ecb348a88e044adb1f3f0e19f8f4cf, type: 3}
+  - Sprites:
+    - {fileID: 21300000, guid: a806cf5bde0ba49a3af746c2e1a27091, type: 3}
+  - Sprites:
+    - {fileID: 21300000, guid: 663505a0721ec48599c89f228990cb9f, type: 3}
+  - Sprites:
+    - {fileID: 21300000, guid: 594af62815b05424989a2dfb5822f06a, type: 3}
+  - Sprites:
+    - {fileID: 21300000, guid: e49cbab534e814afda4e34343802f9a2, type: 3}
 --- !u!212 &212638369462025102
 SpriteRenderer:
   m_ObjectHideFlags: 1

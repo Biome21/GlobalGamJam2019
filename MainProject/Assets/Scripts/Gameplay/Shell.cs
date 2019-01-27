@@ -2,15 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+public class SpriteList
+{
+	public Sprite[] Sprites = null;
+}
+
 public class Shell : MonoBehaviour 
 {
 	private int m_Fatness = 0;
 	[SerializeField] private PolygonCollider2D m_Collider = null;
 	[SerializeField] private SpriteRenderer m_SpriteRenderer = null;
-	[SerializeField] private Sprite m_Sprite = null;
 	[SerializeField] private Animation m_Animation = null;
+	[SerializeField] private int m_DebugFatness = 0;
 	private int m_TargetedCount = 0;
 	private bool m_IsPickedUp = false;
+
+	[SerializeField] private SpriteList[] m_Shells = null;
 
 	public int Fatness
 	{
@@ -38,7 +46,7 @@ public class Shell : MonoBehaviour
 
 	private void Awake()
 	{
-		Init(4);
+		Init(m_DebugFatness);
 	}
 
 	public void Init(int fatness)
@@ -48,9 +56,10 @@ public class Shell : MonoBehaviour
 		// TODO: Do we need to update the polygon collider??
 
 		// TODO: Debugging tests for dynamic sprite and collider
-		m_SpriteRenderer.sprite = m_Sprite;
+		Sprite sprite = m_Shells[m_Fatness].Sprites[0];
+		m_SpriteRenderer.sprite = sprite;
 		List<Vector2> physicsShape = new List<Vector2>();
-		m_Sprite.GetPhysicsShape(0, physicsShape);
+		sprite.GetPhysicsShape(0, physicsShape);
 		m_Collider.points = physicsShape.ToArray();
 	}
 
@@ -78,5 +87,7 @@ public class Shell : MonoBehaviour
 	{
 		m_IsPickedUp = true;
 		m_Collider.enabled = false;
+		m_Animation.Stop();
+		m_TargetedCount = 0;
 	}
 }
