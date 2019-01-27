@@ -199,8 +199,7 @@ public class Hermit : MonoBehaviour
 			m_OnShellExplode (m_PickedUpShell);
 		}		
 		// Explode the shell!!!
-		// TODO: Explode animation of the shell
-		Destroy(m_PickedUpShell.gameObject);
+		m_PickedUpShell.Explode();
 		m_PickedUpShell = null;
 		m_Animation[EXPLODE_ANIM].layer = 1;
 		m_Animation.Play(EXPLODE_ANIM);

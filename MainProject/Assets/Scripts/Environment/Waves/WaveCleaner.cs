@@ -5,6 +5,11 @@ using System;
 
 public class WaveCleaner : MonoBehaviour {
 
+	private const float MIN_WAVE_VOLUME = 0.1f;
+	private const float MAX_WAVE_VOLUME = 0.4f;
+	private const float BIG_WAVE_VOLUME = 1.0f;
+	private const float WAVE_SPEED = 0.55f;
+
 	public Action m_OnWaveFullScreen;
 
 	[Header("Wave Clean Values")]
@@ -13,6 +18,9 @@ public class WaveCleaner : MonoBehaviour {
 
 	[Header("Managers")]
 	public Foot m_Foot;
+
+	[SerializeField] private float m_BigWaveVolumeRatio = 0.0f;
+	[SerializeField] private AudioSource m_WaveLoop = null;
 
 	private bool m_Paused = true;
 	private float m_WaveTimer;
@@ -36,6 +44,9 @@ public class WaveCleaner : MonoBehaviour {
 				StartWave ();
 			}
 		}
+
+		float waveVolume = Mathf.Lerp(MIN_WAVE_VOLUME, MAX_WAVE_VOLUME, Mathf.Abs(Mathf.Sin(Time.realtimeSinceStartup * WAVE_SPEED)));
+		m_WaveLoop.volume = Mathf.Lerp(waveVolume, BIG_WAVE_VOLUME, m_BigWaveVolumeRatio);
 	}
 
 	public void Init()
