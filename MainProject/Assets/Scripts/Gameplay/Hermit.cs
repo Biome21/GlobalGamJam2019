@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class Hermit : MonoBehaviour
+public class Hermit : MonoBehaviour, IComparable
 {
 	private readonly float[] VELOCITIES = new float[]{8.0f, 7.5f, 7.0f, 6.5f, 6.0f};
 	private readonly float[] WALK_SPEEDS = new float[]{8.0f, 7.0f, 6.0f, 5.0f, 4.0f};
@@ -129,7 +129,7 @@ public class Hermit : MonoBehaviour
 
 	private void Update()
 	{
-		if ((m_Beach != null && !m_Beach.IsGameStarted) || m_IsDead)
+		if ((m_Beach != null && !m_Beach.IsGameStarted) || m_IsDead || m_Beach.IsGameOver)
 		{
 			return;
 		}
@@ -270,6 +270,11 @@ public class Hermit : MonoBehaviour
 		m_PickedUpShell.transform.localEulerAngles = Vector3.zero;
 		m_PickedUpShell.OnPickedUp();
 		m_TargetedShell = null;
+
+		if (Fatness == MAXIMUM_FATNESS - 1)
+		{
+			m_Beach.OnGameOver();
+		}
 	}
 
 	private void HandleShellPickup()
@@ -320,6 +325,36 @@ public class Hermit : MonoBehaviour
 		if (m_TargetedShell != null && !m_TargetedShell.IsPickedUp && m_PickedUpShell == null && PlayerInputManager.Instance.GetButtonDown(m_Controller))
 		{
 			OnShellPickedUp();
+		}
+	}
+
+	public void OnGameOver()
+	{
+		m_Animation.CrossFade (IDLE_ANIM);
+	}
+
+	public int CompareTo(object obj) 
+	{
+		Hermit other = obj as Hermit;
+		if (HasShellEquipped)
+		{
+			if (other.HasShellEquipped)
+			{
+				return other.Fatness - Fatness;
+			}
+			else
+			{
+				return -1;
+			}
+		}
+
+		if (other.HasShellEquipped)
+		{
+			return 1;
+		}
+		else
+		{
+			return other.Fatness - Fatness;
 		}
 	}
 }
