@@ -6,7 +6,7 @@ public class BeachOfDespair : MonoBehaviour
 {
 	private const int COUNTDOWN_TIME = 5;
 	private const int MIN_HERMIT_COUNT = 2;
-	private const int GAME_TIME = 120;
+	private const int GAME_TIME = 10;
 	private const int LOADING_TIME = 3;
 	private const float WINNING_OFFSET_BETWEEN_HERMITS = 0.1f;
 
@@ -142,7 +142,9 @@ public class BeachOfDespair : MonoBehaviour
 		m_GameTimer.Stop();
 		m_PlanctonSpawner.StopSpawning ();
 		m_WaveCleaner.Stop ();
+		m_WaveCleaner.enabled = false;
 		m_Foot.Stop ();
+		m_Foot.enabled = false;
 
 		m_WinningScreen.SetActive(true);
 		SetTextsActive(m_Countdown, false);
