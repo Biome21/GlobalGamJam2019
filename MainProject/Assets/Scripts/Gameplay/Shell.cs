@@ -25,7 +25,7 @@ public class Shell : MonoBehaviour
 	private bool m_IsExploded = false;
 	private Vector3 m_ExplodeDirection = Vector3.up;
 
-	[SerializeField] private SpriteList[] m_Shells = null;
+	public SpriteList[] m_Shells = null;
 
 	public int Fatness
 	{

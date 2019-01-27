@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class Hermit : MonoBehaviour
+public class Hermit : MonoBehaviour, IComparable
 {
 	private readonly float[] VELOCITIES = new float[]{8.0f, 7.5f, 7.0f, 6.5f, 6.0f};
 	private readonly float[] WALK_SPEEDS = new float[]{8.0f, 7.0f, 6.0f, 5.0f, 4.0f};
 	public const int MAXIMUM_FATNESS = 5;
 	private const int FOOD_PER_FATNESS = 5;
 	private const int MAX_FOOD = (MAXIMUM_FATNESS - 1) * FOOD_PER_FATNESS;
-	private const float MIN_SCALE = 0.3f;
-	private const float MAX_SCALE = 0.8f;
+	private const float MIN_SCALE = 0.4f;
+	private const float MAX_SCALE = 1.0f;
 	private const string WALK_ANIM = "Walk";
 	private const string IDLE_ANIM = "Idle";
 	private const string POP_ANIM = "Pop";
@@ -132,7 +132,7 @@ public class Hermit : MonoBehaviour
 
 	private void Update()
 	{
-		if ((m_Beach != null && !m_Beach.IsGameStarted) || m_IsDead)
+		if ((m_Beach != null && !m_Beach.IsGameStarted) || m_IsDead || m_Beach.IsGameOver)
 		{
 			return;
 		}
@@ -276,10 +276,15 @@ public class Hermit : MonoBehaviour
 		m_Beach.SFXSource.PlayOneShot(m_PickupClip);
 		m_PickedUpShell = m_TargetedShell;
 		m_PickedUpShell.transform.SetParent(transform);
-		m_PickedUpShell.transform.position = m_ShellAnchor.position;
+		m_PickedUpShell.transform.position = m_ShellAnchor.position + m_PickedUpShell.m_Shells[m_PickedUpShell.Fatness].Offset;
 		m_PickedUpShell.transform.localEulerAngles = Vector3.zero;
 		m_PickedUpShell.OnPickedUp();
 		m_TargetedShell = null;
+
+		if (Fatness == MAXIMUM_FATNESS - 1)
+		{
+			m_Beach.OnGameOver();
+		}
 	}
 
 	private void HandleShellPickup()
@@ -330,6 +335,36 @@ public class Hermit : MonoBehaviour
 		if (m_TargetedShell != null && !m_TargetedShell.IsPickedUp && m_PickedUpShell == null && PlayerInputManager.Instance.GetButtonDown(m_Controller))
 		{
 			OnShellPickedUp();
+		}
+	}
+
+	public void OnGameOver()
+	{
+		m_Animation.CrossFade (IDLE_ANIM);
+	}
+
+	public int CompareTo(object obj) 
+	{
+		Hermit other = obj as Hermit;
+		if (HasShellEquipped)
+		{
+			if (other.HasShellEquipped)
+			{
+				return other.Fatness - Fatness;
+			}
+			else
+			{
+				return -1;
+			}
+		}
+
+		if (other.HasShellEquipped)
+		{
+			return 1;
+		}
+		else
+		{
+			return other.Fatness - Fatness;
 		}
 	}
 }

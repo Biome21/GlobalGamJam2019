@@ -6,7 +6,8 @@ public class BeachOfDespair : MonoBehaviour
 {
 	private const int COUNTDOWN_TIME = 5;
 	private const int MIN_HERMIT_COUNT = 2;
-	private const int GAME_TIME = 120;
+	private const int GAME_TIME = 300;
+	private const float WINNING_OFFSET_BETWEEN_HERMITS = 0.1f;
 
 	[SerializeField] private TextMesh[] m_Countdown = null;
 	[SerializeField] private HermitMaster m_Master = null;
@@ -16,6 +17,8 @@ public class BeachOfDespair : MonoBehaviour
 	[SerializeField] private TextMesh[] m_GameTimeText = null;
 	[SerializeField] private AudioSource m_SFXSource = null;
 	[SerializeField] private GameObject m_WinningScreen = null;
+	[SerializeField] private Transform m_WinningHermitsAnchor = null;
+
 	private Timer m_CountdownTimer = new Timer(COUNTDOWN_TIME);
 	private Timer m_GameTimer = new Timer(GAME_TIME);
 	private bool m_IsGameStarted = false;
@@ -57,6 +60,7 @@ public class BeachOfDespair : MonoBehaviour
 		m_NeedMoreHermitsText.SetActive(false);
 		SetTextsActive(m_Countdown, false);
 		SetTextsActive(m_GameTimeText, false);
+		m_WinningScreen.SetActive(false);
 
 		m_CountdownTimer.m_OnUpdate += UpdateCountdown;
 		m_CountdownTimer.m_OnDone += OnGameStarted;
@@ -103,13 +107,39 @@ public class BeachOfDespair : MonoBehaviour
 		m_ShellSpawner.Init ();
 	}
 
-	private void OnGameOver()
+	public void OnGameOver()
 	{
 		m_IsGameOver = true;
 
+		m_GameTimer.Stop();
 		m_PlanctonSpawner.StopSpawning ();
 		m_WaveCleaner.Stop ();
 		m_Foot.Stop ();
+
+		m_WinningScreen.SetActive(true);
+		SetTextsActive(m_Countdown, false);
+
+		// Sort hermits in winning order
+		List<Hermit> hermits = new List<Hermit>();
+		for (int i = 0; i < m_Master.Hermits.Count; ++i)
+		{
+			if (m_Master.Hermits[i].IsReady)
+			{
+				hermits.Add(m_Master.Hermits[i]);
+			}
+		}
+		hermits.Sort();
+
+		// Position hermits
+		float width = (hermits.Count - 1) * WINNING_OFFSET_BETWEEN_HERMITS;
+		Vector3 localPosition = new Vector3(-width / 2, 0.0f, 0.0f);
+		for (int i = 0; i < hermits.Count; ++i)
+		{
+			hermits[i].transform.SetParent(m_WinningHermitsAnchor);
+			hermits[i].transform.localPosition = localPosition;
+			localPosition.x += WINNING_OFFSET_BETWEEN_HERMITS;
+			hermits[i].OnGameOver();
+		}
 	}
 
 	public void OnControllerReady()
